@@ -1,0 +1,2039 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcelo - Desarrollador Web Full Stack | Portfolio</title>
+    <meta name="description" content="Portfolio de Marcelo, desarrollador web especializado en crear sitios rápidas, accesibles y hermosas. React, Laravel, WordPress.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Marcelo - Desarrollador Web Full Stack">
+    <meta property="og:description" content="Construyo webs rápidas, accesibles y hermosas">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon optimizado -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+    
+    <!-- Google Fonts optimizado -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- CSS Ultra Optimizado -->
+    <style>
+        :root {
+            --primary: #667eea; --primary-dark: #4c63d2; --accent: #f093fb;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --text-primary: #2d3748; --text-secondary: #4a5568; --text-muted: #718096;
+            --bg-main: #f7fafc; --bg-section: #ffffff; --bg-card: #ffffff;
+            --border-light: #e2e8f0; --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 25px rgba(0,0,0,0.15); --shadow-glow: 0 0 30px rgba(102, 126, 234, 0.3);
+            --spacing-sm: 0.5rem; --spacing-md: 1rem; --spacing-lg: 1.5rem; 
+            --spacing-xl: 2rem; --spacing-2xl: 3rem; --spacing-3xl: 4rem;
+            --border-radius: 12px; --border-radius-lg: 20px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        [data-theme="dark"] {
+            --text-primary: #f7fafc; --text-secondary: #e2e8f0; --text-muted: #a0aec0;
+            --bg-main: #0f0f23; --bg-section: #16213e; --bg-card: #1a202c;
+            --border-light: #2d3748; --shadow-glow: 0 0 30px rgba(102, 126, 234, 0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Roboto', system-ui, sans-serif; line-height: 1.6;
+            color: var(--text-primary); background: var(--bg-main);
+            transition: var(--transition); overflow-x: hidden;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--spacing-md); }
+
+        /* Header */
+        .header { position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); z-index: 1000; border-bottom: 1px solid var(--border-light); transition: var(--transition); }
+        .header.scrolled { box-shadow: var(--shadow-md); }
+        [data-theme="dark"] .header { background: rgba(30, 41, 59, 0.95); border-bottom-color: var(--border-light); }
+        .nav { display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-sm) 0; }
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--text-primary); text-decoration: none; transition: var(--transition); }
+        .logo:hover { transform: scale(1.05); }
+        .logo-dot { background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .nav-links { display: flex; gap: var(--spacing-xl); list-style: none; align-items: center; }
+        .nav-link { color: var(--text-secondary); text-decoration: none; font-weight: 500; padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius); transition: var(--transition); position: relative; white-space: nowrap; font-size: 0.9rem; }
+        .nav-link::before { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--gradient-primary); transition: var(--transition); }
+        .nav-link:hover, .nav-link.active { color: var(--primary); transform: translateY(-2px); }
+        .nav-link:hover::before, .nav-link.active::before { width: 100%; }
+        .nav-actions { display: flex; gap: var(--spacing-md); align-items: center; }
+        .login-btn, .theme-toggle { background: var(--gradient-primary); color: white; border: none; padding: var(--spacing-sm) var(--spacing-lg); border-radius: var(--border-radius); cursor: pointer; transition: var(--transition); font-weight: 500; text-decoration: none; }
+        .theme-toggle { width: 45px; height: 45px; border-radius: 50%; padding: 0; font-size: 1.2rem; }
+        .login-btn:hover, .theme-toggle:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
+
+        /* Login Dropdown */
+        .login-dropdown { position: relative; display: inline-block; }
+        .login-dropdown-btn { background: var(--gradient-primary); color: white; border: none; padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius); cursor: pointer; transition: var(--transition); font-weight: 500; font-size: 0.9rem; display: flex; align-items: center; gap: var(--spacing-xs); }
+        .login-dropdown-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
+        .login-dropdown-content { position: absolute; top: 100%; right: 0; background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--border-radius); box-shadow: var(--shadow-lg); min-width: 180px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: var(--transition); z-index: 1001; }
+        .login-dropdown.active .login-dropdown-content { opacity: 1; visibility: visible; transform: translateY(0); }
+        .login-dropdown-item { display: block; width: 100%; padding: var(--spacing-md); border: none; background: none; color: var(--text-primary); text-decoration: none; transition: var(--transition); cursor: pointer; text-align: left; font-size: 0.9rem; }
+        .login-dropdown-item:hover { background: var(--bg-main); }
+        
+        /* Auth y Modal styles */
+        .user-menu { position: relative; display: none; }
+        .user-avatar { width: 35px; height: 35px; border-radius: 50%; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; font-size: 0.9rem; }
+        .dropdown { position: absolute; top: 100%; right: 0; background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--border-radius); box-shadow: var(--shadow-lg); min-width: 200px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: var(--transition); }
+        .dropdown.active { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-item { display: block; width: 100%; padding: var(--spacing-md); border: none; background: none; color: var(--text-primary); text-decoration: none; transition: var(--transition); cursor: pointer; }
+        .dropdown-item:hover { background: var(--bg-main); }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 10000; backdrop-filter: blur(5px); }
+        .modal.active { display: flex; align-items: center; justify-content: center; }
+        .modal-content { background: var(--bg-card); padding: var(--spacing-2xl); border-radius: var(--border-radius-lg); max-width: 500px; width: 90%; box-shadow: var(--shadow-lg); position: relative; }
+        .form-group { margin-bottom: var(--spacing-lg); }
+        .form-label { display: block; margin-bottom: var(--spacing-sm); font-weight: 600; }
+        .form-input { width: 100%; padding: var(--spacing-md); border: 2px solid var(--border-light); border-radius: var(--border-radius); font-size: 1rem; background: var(--bg-main); color: var(--text-primary); transition: var(--transition); }
+        .form-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
+        .modal-actions { display: flex; gap: var(--spacing-md); margin-top: var(--spacing-xl); }
+        .modal-btn { flex: 1; padding: var(--spacing-md); border: none; border-radius: var(--border-radius); font-weight: 600; cursor: pointer; transition: var(--transition); }
+        .modal-btn.primary { background: var(--gradient-primary); color: white; }
+        .modal-btn.secondary { background: var(--bg-main); color: var(--text-primary); border: 2px solid var(--border-light); }
+        .close-modal { position: absolute; top: var(--spacing-md); right: var(--spacing-md); background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
+        .rating-input { display: flex; justify-content: center; gap: var(--spacing-sm); }
+        .star-input { cursor: pointer; opacity: 0.3; transition: var(--transition); }
+        .success-message { position: fixed; top: 100px; right: var(--spacing-lg); background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: var(--spacing-md) var(--spacing-lg); border-radius: var(--border-radius); z-index: 10001; transform: translateX(100%); transition: var(--transition); }
+        .success-message.show { transform: translateX(0); }
+
+        /* Botones */
+        .btn { display: inline-flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-lg) var(--spacing-xl); border-radius: var(--border-radius); text-decoration: none; font-weight: 600; transition: var(--transition); border: 2px solid transparent; position: relative; overflow: hidden; }
+        .btn-primary { background: var(--gradient-primary); color: white; box-shadow: var(--shadow-md); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: var(--shadow-glow); }
+        .btn-secondary { background: var(--bg-card); border: 2px solid var(--border-light); color: var(--text-primary); }
+        .btn-secondary:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-3px); }
+
+        /* Hero */
+        .hero { min-height: 100vh; display: flex; align-items: center; background: var(--bg-section); padding-top: 80px; position: relative; }
+        .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-3xl); align-items: center; }
+        .hero-text h1 { font-size: 4rem; font-weight: 900; margin-bottom: var(--spacing-lg); line-height: 1.1; }
+        .gradient-text { background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-subtitle { font-size: 1.5rem; color: var(--text-secondary); margin-bottom: var(--spacing-md); font-weight: 500; }
+        .hero-description { font-size: 1.2rem; color: var(--text-muted); margin-bottom: var(--spacing-2xl); max-width: 500px; line-height: 1.7; }
+        .hero-buttons { display: flex; gap: var(--spacing-lg); flex-wrap: wrap; }
+        .hero-visual { text-align: center; position: relative; }
+        .hero-placeholder { width: 350px; height: 350px; background: var(--gradient-primary); border-radius: var(--border-radius-lg); display: flex; align-items: center; justify-content: center; margin: 0 auto; flex-direction: column; font-size: 5rem; color: white; box-shadow: var(--shadow-glow); }
+
+        /* Secciones */
+        .section { padding: var(--spacing-3xl) 0; background: var(--bg-section); }
+        .section:nth-child(even) { background: var(--bg-main); }
+        .section-header { text-align: center; margin-bottom: var(--spacing-3xl); }
+        .section-title { font-size: 3rem; font-weight: 900; margin-bottom: var(--spacing-lg); position: relative; }
+        .section-title::after { content: ''; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); width: 80px; height: 4px; background: var(--gradient-primary); border-radius: 2px; }
+        .section-subtitle { font-size: 1.3rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+        /* Portfolio */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: var(--spacing-2xl); }
+        .portfolio-item { background: var(--bg-card); border-radius: var(--border-radius-lg); overflow: hidden; border: 1px solid var(--border-light); transition: var(--transition); }
+        .portfolio-item:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+        .portfolio-image { height: 250px; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; font-size: 4rem; color: white; }
+        .portfolio-content { padding: var(--spacing-xl); }
+
+        /* Animaciones */
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .scale-in { opacity: 0; transform: scale(0.9); transition: all 0.6s ease; }
+        .scale-in.visible { opacity: 1; transform: scale(1); }
+
+        /* Footer */
+        .footer { background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%); color: white; padding: var(--spacing-3xl) 0 var(--spacing-xl); text-align: center; }
+
+        /* Workflow Section */
+        .workflow-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-xl); margin-top: var(--spacing-2xl); }
+        .workflow-step { background: var(--bg-card); padding: var(--spacing-2xl); border-radius: var(--border-radius-lg); border: 1px solid var(--border-light); text-align: center; position: relative; transition: var(--transition); }
+        .workflow-step:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+        .workflow-number { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; background: var(--gradient-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; }
+        .workflow-icon { font-size: 3rem; margin: var(--spacing-lg) 0; }
+        .workflow-title { font-size: 1.3rem; font-weight: 700; margin-bottom: var(--spacing-md); color: var(--text-primary); }
+        .workflow-description { color: var(--text-muted); line-height: 1.6; }
+
+        /* Stack Tecnológico */
+        .stack-content { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-3xl); }
+        .stack-category { background: var(--bg-card); padding: var(--spacing-2xl); border-radius: var(--border-radius-lg); border: 1px solid var(--border-light); transition: var(--transition); position: relative; }
+        .stack-category::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-primary); }
+        .stack-category:nth-child(2)::before { background: var(--gradient-accent); }
+        .stack-category:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+        .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: var(--spacing-lg); }
+        .tech-item { text-align: center; padding: var(--spacing-lg); background: var(--bg-main); border-radius: var(--border-radius); border: 1px solid var(--border-light); transition: var(--transition); }
+        .tech-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--primary); }
+
+        /* Testimonios */
+        .testimonials-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: var(--spacing-xl); 
+            max-height: 600px;
+            overflow-y: auto;
+            padding: var(--spacing-md);
+            scroll-behavior: smooth;
+        }
+        .testimonials-grid::-webkit-scrollbar { width: 8px; }
+        .testimonials-grid::-webkit-scrollbar-track { background: var(--bg-section); border-radius: 10px; }
+        .testimonials-grid::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        .testimonials-grid::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+        .testimonial-card { background: var(--bg-card); padding: var(--spacing-2xl); border-radius: var(--border-radius-lg); border: 1px solid var(--border-light); transition: var(--transition); text-align: center; position: relative; }
+        .testimonial-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+        .testimonial-card.user-own { border: 2px solid var(--primary); background: linear-gradient(135deg, var(--bg-card) 0%, rgba(102, 126, 234, 0.05) 100%); }
+        .testimonial-card.user-own::before { content: "Tu testimonio"; position: absolute; top: -8px; left: 20px; background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+        .testimonial-avatar { width: 80px; height: 80px; background: var(--gradient-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--spacing-lg); font-size: 2rem; }
+
+        /* Panel de Admin */
+        .admin-panel { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: 10000; display: none; padding: var(--spacing-xl); overflow-y: auto; }
+        .admin-panel.active { display: block; }
+        .admin-content { background: var(--bg-card); max-width: 1200px; margin: 0 auto; border-radius: var(--border-radius-lg); padding: var(--spacing-2xl); }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-2xl); border-bottom: 2px solid var(--border-light); padding-bottom: var(--spacing-lg); }
+        .admin-title { font-size: 2rem; font-weight: 700; color: var(--text-primary); }
+        .admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-lg); margin-bottom: var(--spacing-2xl); }
+        .stat-card { background: var(--gradient-primary); color: white; padding: var(--spacing-xl); border-radius: var(--border-radius); text-align: center; }
+        .stat-number { font-size: 2.5rem; font-weight: 900; display: block; }
+        .stat-label { font-size: 1rem; opacity: 0.9; }
+        .admin-section { background: var(--bg-main); padding: var(--spacing-xl); border-radius: var(--border-radius); border: 1px solid var(--border-light); margin-bottom: var(--spacing-lg); }
+        .admin-section h3 { margin-bottom: var(--spacing-lg); color: var(--text-primary); }
+        .admin-item { display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-md); border: 1px solid var(--border-light); border-radius: var(--border-radius); margin-bottom: var(--spacing-sm); background: var(--bg-card); }
+        .admin-item-info { flex: 1; }
+        .admin-item-actions { display: flex; gap: var(--spacing-sm); }
+
+        /* Botones expandidos para secciones específicas */
+        .btn-expanded { padding: var(--spacing-lg) var(--spacing-3xl); font-size: 1.1rem; min-width: 200px; }
+        .section-cta { text-align: center; margin-top: var(--spacing-2xl); }
+        
+        /* Navegación mejorada */
+        .nav { padding: var(--spacing-md) 0; }
+        @media (max-width: 1200px) {
+            .nav-links { gap: var(--spacing-xl); }
+        }
+        @media (max-width: 1024px) {
+            .nav-links { gap: var(--spacing-lg); }
+            .nav-link { padding: var(--spacing-sm) var(--spacing-md); font-size: 0.9rem; }
+        }
+        
+        /* Botón hamburger para móviles */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 2rem;
+            height: 2rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .hamburger-line {
+            width: 2rem;
+            height: 0.25rem;
+            background: var(--text-primary);
+            border-radius: 10px;
+            transition: all 0.3s linear;
+            position: relative;
+            transform-origin: 1px;
+        }
+
+        .mobile-menu-toggle.active .hamburger-line:first-child {
+            transform: rotate(45deg);
+        }
+
+        .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mobile-menu-toggle { display: flex; }
+            .nav-links { 
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--bg-section);
+                flex-direction: column;
+                gap: 0;
+                padding: var(--spacing-lg);
+                box-shadow: var(--shadow-lg);
+                border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+            }
+            .nav-links.active { display: flex; }
+            .nav-links li { width: 100%; text-align: center; }
+            .nav-link { 
+                display: block; 
+                padding: var(--spacing-md) 0; 
+                border-bottom: 1px solid var(--border-light); 
+            }
+            .nav-link:hover { background: var(--bg-main); }
+            .nav-actions { gap: var(--spacing-md); }
+            .hero-content, .about-content, .stack-content { grid-template-columns: 1fr; gap: var(--spacing-xl); text-align: center; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .section-title { font-size: 2.2rem; }
+            .section { padding: var(--spacing-2xl) 0; }
+            .portfolio-grid, .testimonials-grid, .workflow-grid { grid-template-columns: 1fr; }
+            .hero-placeholder { width: 250px; height: 250px; }
+            .btn-expanded { padding: var(--spacing-md) var(--spacing-xl); font-size: 1rem; min-width: 180px; }
+        }
+
+        [style*="-webkit-background-clip: text"] {
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="#home" class="logo">Marcelo<span class="logo-dot">.</span></a>
+                
+                <!-- Botón hamburger para móviles -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Abrir menú" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home" class="nav-link active">Inicio</a></li>
+                    <li><a href="#about" class="nav-link">Sobre mí</a></li>
+                    <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                    <li><a href="#workflow" class="nav-link">Cómo trabajo</a></li>
+                    <li><a href="#stack" class="nav-link">Stack</a></li>
+                    <li><a href="#testimonials" class="nav-link">Testimonios</a></li>
+                    <li><a href="#planes" class="nav-link">Planes</a></li>
+                    <li><a href="#contact" class="nav-link">Contacto</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                </ul>
+                
+                <div class="nav-actions">
+                    <!-- Login Dropdown -->
+                    <div class="login-dropdown" id="loginDropdown">
+                        <button class="login-dropdown-btn" id="loginDropdownBtn">
+                            👤 <span>Cuenta</span> ▼
+                        </button>
+                        <div class="login-dropdown-content" id="loginDropdownContent">
+                            <a href="#" class="login-dropdown-item" id="loginOptionBtn">🔐 Iniciar Sesión</a>
+                            <a href="#" class="login-dropdown-item" id="registerOptionBtn">📝 Registrarse</a>
+                        </div>
+                    </div>
+                    
+                    <!-- User Menu (when logged in) -->
+                    <div class="user-menu" id="userMenu">
+                        <div class="user-avatar" id="userAvatar">M</div>
+                        <div class="dropdown" id="userDropdown">
+                            <a href="#" class="dropdown-item" id="profileBtn">👤 Mi Perfil</a>
+                            <a href="#" class="dropdown-item" id="reviewBtn">⭐ Dejar Reseña</a>
+                            <div class="dropdown-item" id="adminPanelBtn" style="display: none;">👑 Panel Admin</div>
+                            <div class="dropdown-item" id="logoutBtn">🚪 Cerrar Sesión</div>
+                        </div>
+                    </div>
+                    
+                    <button class="theme-toggle" id="themeToggle">🌙</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text fade-in">
+                    <h1>Hola, soy <span class="gradient-text">Marcelo</span></h1>
+                    <p class="hero-subtitle">Desarrollador Web Full Stack</p>
+                    <p class="hero-description">
+                        Construyo webs rápidas, accesibles y hermosas que conectan marcas con usuarios de manera efectiva. 
+                        Especialista en crear experiencias digitales excepcionales con WordPress, React y Laravel.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#portfolio" class="btn btn-primary">🚀 Ver mis trabajos</a>
+                        <a href="#contact" class="btn btn-secondary">💬 Contactarme</a>
+                    </div>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="hero-image">
+                        <img src="Imagenes de marcelo/Marcelo-banner.jpg" alt="Marcelo - Desarrollador Web Full Stack" 
+                             style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-lg);">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Sobre mí</h2>
+                <p class="section-subtitle">Desarrollador apasionado por crear experiencias web excepcionales</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="slide-in-left">
+                    <p class="about-text">
+                        Soy un desarrollador web especializado en crear soluciones digitales que no solo funcionen perfectamente, 
+                        sino que también deleiten a los usuarios. Mi enfoque combina código limpio, diseño intuitivo y 
+                        las mejores prácticas de desarrollo moderno.
+                    </p>
+                    
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <h4>🎨 Frontend</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">React</span>
+                                <span class="skill-tag">Vue.js</span>
+                                <span class="skill-tag">JavaScript ES6+</span>
+                                <span class="skill-tag">TypeScript</span>
+                                <span class="skill-tag">CSS3/SCSS</span>
+                                <span class="skill-tag">HTML5</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <h4>⚙️ Backend</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Laravel</span>
+                                <span class="skill-tag">PHP</span>
+                                <span class="skill-tag">Node.js</span>
+                                <span class="skill-tag">MySQL</span>
+                                <span class="skill-tag">REST APIs</span>
+                                <span class="skill-tag">WordPress</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <h4>💪 Soft Skills</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Resolución de Problemas</span>
+                                <span class="skill-tag">Trabajo en Equipo</span>
+                                <span class="skill-tag">Comunicación Efectiva</span>
+                                <span class="skill-tag">Adaptabilidad</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slide-in-right">
+                    <div class="about-image" style="width: 100%; max-width: 400px; height: 400px;">
+                        <img src="Imagenes de marcelo/Marcelo-Quien-Soy.jpg" alt="Marcelo - Sobre mi" 
+                             style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-lg);">
+                    </div>
+                    <div style="text-align: center; margin-top: var(--spacing-lg);">
+                        <a href="blog.html" class="btn btn-primary">📝 Visitar Blog</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CTA de sección Sobre mí -->
+            <div class="section-cta fade-in">
+                <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: var(--spacing-lg);">
+                    ¿Quieres saber más sobre mi experiencia y proyectos?
+                </p>
+                <a href="#workflow" class="btn btn-primary btn-expanded">📋 Ver mi metodología de trabajo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Portfolio</h2>
+                <p class="section-subtitle">Proyectos destacados que demuestran mi experiencia</p>
+            </div>
+            
+            <div class="portfolio-grid">
+                <div class="portfolio-item scale-in">
+                    <div class="portfolio-image">📋</div>
+                    <div class="portfolio-content">
+                        <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: var(--spacing-sm);">Dashboard Profesional</h3>
+                        <p style="color: var(--text-muted); margin-bottom: var(--spacing-lg);">
+                            Sistema de gestión veterinaria completo con dashboard administrativo, 
+                            gestión de clientes, citas y reportes.
+                        </p>
+                        <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-sm); margin-bottom: var(--spacing-lg);">
+                            <span style="background: var(--primary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.8rem;">HTML5</span>
+                            <span style="background: var(--primary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.8rem;">CSS3</span>
+                            <span style="background: var(--primary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.8rem;">JavaScript</span>
+                        </div>
+                        <div style="display: flex; gap: var(--spacing-md);">
+                            <a href="Webs/Dashboard profecional/vetgestion-html/index.html" target="_blank" class="btn btn-primary" style="flex: 1; text-align: center; padding: var(--spacing-sm);">🌐 Ver Proyecto</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item scale-in">
+                    <div class="portfolio-image">🛒</div>
+                    <div class="portfolio-content">
+                        <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: var(--spacing-sm);">E-commerce Completo</h3>
+                        <p style="color: var(--text-muted); margin-bottom: var(--spacing-lg);">
+                            Tienda online completa con carrito de compras, gestión de productos, 
+                            sistema de pagos y panel administrativo.
+                        </p>
+                        <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-sm); margin-bottom: var(--spacing-lg);">
+                            <span style="background: var(--primary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.8rem;">HTML5</span>
+                            <span style="background: var(--primary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.8rem;">CSS3</span>
+                            <span style="background: var(--primary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.8rem;">JavaScript</span>
+                        </div>
+                        <div style="display: flex; gap: var(--spacing-md);">
+                            <a href="Webs/e-comerce/index.html" target="_blank" class="btn btn-primary" style="flex: 1; text-align: center; padding: var(--spacing-sm);">🌐 Ver Proyecto</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item scale-in">
+                    <div class="portfolio-image">🎨</div>
+                    <div class="portfolio-content">
+                        <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: var(--spacing-sm);">Web Corporativa</h3>
+                        <p style="color: var(--text-muted); margin-bottom: var(--spacing-lg);">
+                            Sitio web empresarial con CMS personalizado y optimización SEO avanzada.
+                        </p>
+                        <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-sm); margin-bottom: var(--spacing-lg);">
+                            <span style="background: var(--primary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.8rem;">WordPress</span>
+                            <span style="background: var(--primary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.8rem;">SEO</span>
+                        </div>
+                        <div style="display: flex; gap: var(--spacing-md);">
+                            <a href="#" class="btn btn-primary" style="flex: 1; text-align: center; padding: var(--spacing-sm);">🚧 Próximamente</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CTA de sección Portfolio -->
+            <div class="section-cta fade-in">
+                <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: var(--spacing-lg);">
+                    ¿Interesado en cómo desarrollo estos proyectos?
+                </p>
+                <a href="#workflow" class="btn btn-primary btn-expanded">🔧 Conoce mi metodología</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nueva Sección: Cómo Trabajo -->
+    <section id="workflow" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Cómo Trabajo</h2>
+                <p class="section-subtitle">Mi metodología probada para entregar proyectos exitosos</p>
+            </div>
+            
+            <div class="workflow-grid">
+                <div class="workflow-step scale-in">
+                    <div class="workflow-number">1</div>
+                    <div class="workflow-icon">💬</div>
+                    <h3 class="workflow-title">Consultoría Inicial</h3>
+                    <p class="workflow-description">
+                        Analizo tus necesidades, objetivos y audiencia para crear una estrategia digital personalizada. 
+                        Definimos el alcance, tecnologías y cronograma del proyecto.
+                    </p>
+                </div>
+                
+                <div class="workflow-step scale-in">
+                    <div class="workflow-number">2</div>
+                    <div class="workflow-icon">🎨</div>
+                    <h3 class="workflow-title">Diseño & Planificación</h3>
+                    <p class="workflow-description">
+                        Creo wireframes, mockups y prototipos interactivos. Planificamos la arquitectura, 
+                        base de datos y estructura del proyecto con metodologías ágiles.
+                    </p>
+                </div>
+                
+                <div class="workflow-step scale-in">
+                    <div class="workflow-number">3</div>
+                    <div class="workflow-icon">⚙️</div>
+                    <h3 class="workflow-title">Desarrollo</h3>
+                    <p class="workflow-description">
+                        Desarrollo con las mejores prácticas: código limpio, responsive design, 
+                        optimización SEO y testing continuo. Especializado en React, Laravel y WordPress.
+                    </p>
+                </div>
+                
+                <div class="workflow-step scale-in">
+                    <div class="workflow-number">4</div>
+                    <div class="workflow-icon">🚀</div>
+                    <h3 class="workflow-title">Lanzamiento & Soporte</h3>
+                    <p class="workflow-description">
+                        Deploy en servidores optimizados, configuración de dominio, SSL y 
+                        monitoreo. Incluyo soporte post-lanzamiento y training si es necesario.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Especialización WordPress -->
+            <div style="background: var(--bg-card); border-radius: var(--border-radius-lg); padding: var(--spacing-2xl); margin-top: var(--spacing-3xl); border: 1px solid var(--border-light);" class="fade-in">
+                <h3 style="text-align: center; margin-bottom: var(--spacing-xl); font-size: 1.8rem; color: var(--text-primary);">🎯 Especialización en WordPress</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-lg);">
+                    <div style="text-align: center; padding: var(--spacing-lg);">
+                        <h4 style="color: var(--primary); margin-bottom: var(--spacing-sm); font-size: 1.2rem;">⚡ Desarrollo Custom</h4>
+                        <p style="color: var(--text-muted); line-height: 1.6;">Themes y plugins personalizados, optimizados para performance y SEO. Arquitectura escalable y mantenible.</p>
+                    </div>
+                    <div style="text-align: center; padding: var(--spacing-lg);">
+                        <h4 style="color: var(--primary); margin-bottom: var(--spacing-sm); font-size: 1.2rem;">🔧 Mantenimiento</h4>
+                        <p style="color: var(--text-muted); line-height: 1.6;">Actualizaciones, backups automáticos, monitoreo de seguridad 24/7 y optimización continua.</p>
+                    </div>
+                    <div style="text-align: center; padding: var(--spacing-lg);">
+                        <h4 style="color: var(--primary); margin-bottom: var(--spacing-sm); font-size: 1.2rem;">📈 E-commerce</h4>
+                        <p style="color: var(--text-muted); line-height: 1.6;">WooCommerce avanzado, velocidad de carga optimizada y estrategias de conversión mejoradas.</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: var(--spacing-xl); padding-top: var(--spacing-lg); border-top: 1px solid var(--border-light);">
+                    <h4 style="color: var(--text-primary); margin-bottom: var(--spacing-md);">💼 Servicios WordPress Completos</h4>
+                    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: var(--spacing-sm);">
+                        <span class="skill-tag">Custom Themes</span>
+                        <span class="skill-tag">Plugin Development</span>
+                        <span class="skill-tag">WooCommerce</span>
+                        <span class="skill-tag">Gutenberg Blocks</span>
+                        <span class="skill-tag">API REST</span>
+                        <span class="skill-tag">Multisite</span>
+                        <span class="skill-tag">Performance</span>
+                        <span class="skill-tag">Security</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CTA de sección Cómo trabajo -->
+            <div class="section-cta fade-in">
+                <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: var(--spacing-lg);">
+                    ¿Te interesa trabajar conmigo? Conoce las tecnologías que domino
+                </p>
+                <a href="#stack" class="btn btn-primary btn-expanded">🚀 Explorar mi Stack Tecnológico</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stack Section -->
+    <section id="stack" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Stack Tecnológico</h2>
+                <p class="section-subtitle">Tecnologías que domino y otras que estoy explorando</p>
+            </div>
+            
+            <div class="stack-content">
+                <div class="stack-category slide-in-left">
+                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: var(--spacing-lg); color: var(--text-primary);">🚀 En Producción</h3>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">⚛️</div>
+                            <div style="font-weight: 600; color: var(--text-primary);">React</div>
+                        </div>
+                        <div class="tech-item">
+                            <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">🎯</div>
+                            <div style="font-weight: 600; color: var(--text-primary);">Laravel</div>
+                        </div>
+                        <div class="tech-item">
+                            <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">📝</div>
+                            <div style="font-weight: 600; color: var(--text-primary);">WordPress</div>
+                        </div>
+                        <div class="tech-item">
+                            <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">🟨</div>
+                            <div style="font-weight: 600; color: var(--text-primary);">JavaScript</div>
+                        </div>
+                        <div class="tech-item">
+                            <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">🐘</div>
+                            <div style="font-weight: 600; color: var(--text-primary);">PHP</div>
+                        </div>
+                        <div class="tech-item">
+                            <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">🗄️</div>
+                            <div style="font-weight: 600; color: var(--text-primary);">MySQL</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stack-category slide-in-right">
+                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: var(--spacing-lg); color: var(--text-primary);">📚 Aprendiendo</h3>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">🐳</div>
+                            <div style="font-weight: 600; color: var(--text-primary);">Docker</div>
+                        </div>
+                        <div class="tech-item">
+                            <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">☁️</div>
+                            <div style="font-weight: 600; color: var(--text-primary);">AWS</div>
+                        </div>
+                        <div class="tech-item">
+                            <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">🔷</div>
+                            <div style="font-weight: 600; color: var(--text-primary);">TypeScript</div>
+                        </div>
+                        <div class="tech-item">
+                            <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">⚡</div>
+                            <div style="font-weight: 600; color: var(--text-primary);">GraphQL</div>
+                        </div>
+                        <div class="tech-item">
+                            <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">🃏</div>
+                            <div style="font-weight: 600; color: var(--text-primary);">Jest</div>
+                        </div>
+                        <div class="tech-item">
+                            <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">⚛️</div>
+                            <div style="font-weight: 600; color: var(--text-primary);">Next.js</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CTA de sección Stack -->
+            <div class="section-cta fade-in">
+                <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: var(--spacing-lg);">
+                    ¿Qué opinan mis clientes sobre la calidad de mi trabajo?
+                </p>
+                <a href="#testimonials" class="btn btn-primary btn-expanded">⭐ Leer testimonios reales</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Testimonios</h2>
+                <p class="section-subtitle">Lo que dicen mis clientes sobre mi trabajo</p>
+            </div>
+            
+            <div class="testimonials-grid" id="testimonialsContainer">
+                <!-- Los testimonios se cargarán dinámicamente -->
+            </div>
+            
+            <div style="text-align: center; margin-top: var(--spacing-2xl);">
+                <button class="btn btn-primary" id="addTestimonialBtn" style="display: none;">
+                    ⭐ Agregar Testimonio
+                </button>
+            </div>
+            
+            <!-- CTA de sección Testimonios -->
+            <div class="section-cta fade-in">
+                <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: var(--spacing-lg);">
+                    ¿Listo para crear algo increíble juntos?
+                </p>
+                <a href="#contact" class="btn btn-primary btn-expanded">💬 Hablemos de tu proyecto</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Planes Section -->
+    <section id="planes" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">🧱 Planes Disponibles</h2>
+                <p class="section-subtitle">Elige el plan perfecto para tu proyecto web</p>
+            </div>
+            
+            <!-- Grid de Planes -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: var(--spacing-2xl); margin-top: var(--spacing-3xl);">
+                
+                <!-- Plan Landing Page -->
+                <div class="fade-in" style="background: var(--bg-card); border-radius: var(--border-radius-lg); padding: var(--spacing-2xl); border: 2px solid var(--border-light); transition: var(--transition); position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #667eea, #764ba2);"></div>
+                    
+                    <div style="text-align: center; margin-bottom: var(--spacing-xl);">
+                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--spacing-lg); font-size: 2rem;">🌟</div>
+                        <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: var(--spacing-sm); color: var(--text-primary);">Landing Page</h3>
+                        <div style="font-size: 3rem; font-weight: 900; color: var(--primary); margin-bottom: var(--spacing-sm);">$45</div>
+                        <p style="color: var(--text-muted); font-size: 1rem;">USD - Ideal para presencia rápida y efectiva online</p>
+                    </div>
+                    
+                    <div style="margin-bottom: var(--spacing-xl);">
+                        <h4 style="font-size: 1.2rem; font-weight: 600; margin-bottom: var(--spacing-md); color: var(--text-primary);">✅ Incluye:</h4>
+                        <ul style="list-style: none; padding: 0; margin-bottom: var(--spacing-sm);">
+                            <li style="padding: var(--spacing-sm) 0; color: var(--text-secondary); display: flex; align-items: center; gap: var(--spacing-sm);">🔹 1 página única y personalizada</li>
+                            <li style="padding: var(--spacing-sm) 0; color: var(--text-secondary); display: flex; align-items: center; gap: var(--spacing-sm);">🔹 Diseño responsive (adaptado a móviles)</li>
+                            <li style="padding: var(--spacing-sm) 0; color: var(--text-secondary); display: flex; align-items: center; gap: var(--spacing-sm);">🔹 Animaciones suaves y scroll fluido</li>
+                            <li style="padding: var(--spacing-sm) 0; color: var(--text-secondary); display: flex; align-items: center; gap: var(--spacing-sm);">🔹 Enlaces a redes y contacto</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="margin-bottom: var(--spacing-xl);">
+                        <h4 style="font-size: 1.1rem; font-weight: 600; margin-bottom: var(--spacing-md); color: var(--text-primary);">💡 Webs posibles:</h4>
+                        <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-sm);">
+                            <span style="background: var(--bg-main); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius); font-size: 0.85rem; color: var(--text-muted); border: 1px solid var(--border-light);">Portfolio personal</span>
+                            <span style="background: var(--bg-main); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius); font-size: 0.85rem; color: var(--text-muted); border: 1px solid var(--border-light);">Blog simple</span>
+                            <span style="background: var(--bg-main); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius); font-size: 0.85rem; color: var(--text-muted); border: 1px solid var(--border-light);">Presentación de producto</span>
+                            <span style="background: var(--bg-main); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius); font-size: 0.85rem; color: var(--text-muted); border: 1px solid var(--border-light);">"Coming soon"</span>
+                            <span style="background: var(--bg-main); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius); font-size: 0.85rem; color: var(--text-muted); border: 1px solid var(--border-light);">Carta digital</span>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <span style="display: inline-block; padding: var(--spacing-sm) var(--spacing-md); background: var(--gradient-primary); color: white; border-radius: var(--border-radius); font-size: 0.9rem; font-weight: 600; margin-bottom: var(--spacing-lg);">⏱️ 2-3 días</span>
+                        <br>
+                        <button class="btn btn-primary" style="width: 100%; margin-top: var(--spacing-md);" onclick="window.open('https://wa.me/5491140667516?text=Hola, estoy interesado en el plan Landing Page ($45)', '_blank')">🚀 Solicitar Landing</button>
+                    </div>
+                </div>
+                
+                <!-- Plan Web Pro -->
+                <div class="fade-in" style="background: var(--bg-card); border-radius: var(--border-radius-lg); padding: var(--spacing-2xl); border: 2px solid var(--primary); transition: var(--transition); position: relative; overflow: hidden; transform: scale(1.05); box-shadow: var(--shadow-glow);">
+                    <div style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--gradient-primary); color: white; padding: var(--spacing-sm) var(--spacing-lg); border-radius: var(--border-radius); font-size: 0.9rem; font-weight: 600;">⭐ POPULAR</div>
+                    <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #f093fb, #f5576c);"></div>
+                    
+                    <div style="text-align: center; margin-bottom: var(--spacing-xl);">
+                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #f093fb, #f5576c); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--spacing-lg); font-size: 2rem;">🚀</div>
+                        <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: var(--spacing-sm); color: var(--text-primary);">Web Pro</h3>
+                        <div style="font-size: 3rem; font-weight: 900; color: var(--primary); margin-bottom: var(--spacing-sm);">$55</div>
+                        <p style="color: var(--text-muted); font-size: 1rem;">USD - Para proyectos con más estructura y navegación</p>
+                    </div>
+                    
+                    <div style="margin-bottom: var(--spacing-xl);">
+                        <h4 style="font-size: 1.2rem; font-weight: 600; margin-bottom: var(--spacing-md); color: var(--text-primary);">✅ Incluye:</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: var(--spacing-sm) 0; color: var(--text-secondary); display: flex; align-items: center; gap: var(--spacing-sm);">🔹 3 páginas (Inicio, Sobre Nosotros, Contacto)</li>
+                            <li style="padding: var(--spacing-sm) 0; color: var(--text-secondary); display: flex; align-items: center; gap: var(--spacing-sm);">🔹 Hasta 2 páginas adicionales (+$5 c/u)</li>
+                            <li style="padding: var(--spacing-sm) 0; color: var(--text-secondary); display: flex; align-items: center; gap: var(--spacing-sm);">🔹 Navegación fluida entre secciones</li>
+                            <li style="padding: var(--spacing-sm) 0; color: var(--text-secondary); display: flex; align-items: center; gap: var(--spacing-sm);">🔹 Diseño responsivo completo</li>
+                            <li style="padding: var(--spacing-sm) 0; color: var(--text-secondary); display: flex; align-items: center; gap: var(--spacing-sm);">🔹 Animaciones y scroll suave</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="margin-bottom: var(--spacing-xl);">
+                        <h4 style="font-size: 1.1rem; font-weight: 600; margin-bottom: var(--spacing-md); color: var(--text-primary);">💡 Webs posibles:</h4>
+                        <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-sm);">
+                            <span style="background: var(--bg-main); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius); font-size: 0.85rem; color: var(--text-muted); border: 1px solid var(--border-light);">Reservas básicas</span>
+                            <span style="background: var(--bg-main); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius); font-size: 0.85rem; color: var(--text-muted); border: 1px solid var(--border-light);">Web institucional</span>
+                            <span style="background: var(--bg-main); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius); font-size: 0.85rem; color: var(--text-muted); border: 1px solid var(--border-light);">Dashboard visual</span>
+                            <span style="background: var(--bg-main); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius); font-size: 0.85rem; color: var(--text-muted); border: 1px solid var(--border-light);">Web educativa</span>
+                            <span style="background: var(--bg-main); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius); font-size: 0.85rem; color: var(--text-muted); border: 1px solid var(--border-light);">Portfolio detallado</span>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <span style="display: inline-block; padding: var(--spacing-sm) var(--spacing-md); background: var(--gradient-accent); color: white; border-radius: var(--border-radius); font-size: 0.9rem; font-weight: 600; margin-bottom: var(--spacing-lg);">⏱️ 2-4 días</span>
+                        <br>
+                        <button class="btn btn-primary" style="width: 100%; margin-top: var(--spacing-md);" onclick="window.open('https://wa.me/5491140667516?text=Hola, estoy interesado en el plan Web Pro ($55)', '_blank')">🚀 Solicitar Web Pro</button>
+                    </div>
+                </div>
+                
+                <!-- Plan Web Plus -->
+                <div class="fade-in" style="background: var(--bg-card); border-radius: var(--border-radius-lg); padding: var(--spacing-2xl); border: 2px solid var(--border-light); transition: var(--transition); position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #4facfe, #00f2fe);"></div>
+                    
+                    <div style="text-align: center; margin-bottom: var(--spacing-xl);">
+                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #4facfe, #00f2fe); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--spacing-lg); font-size: 2rem;">💎</div>
+                        <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: var(--spacing-sm); color: var(--text-primary);">Web Plus</h3>
+                        <div style="font-size: 3rem; font-weight: 900; color: var(--primary); margin-bottom: var(--spacing-sm);">$75</div>
+                        <p style="color: var(--text-muted); font-size: 1rem;">USD - Sitios completos, escalables y con funcionalidades avanzadas</p>
+                    </div>
+                    
+                    <div style="margin-bottom: var(--spacing-xl);">
+                        <h4 style="font-size: 1.2rem; font-weight: 600; margin-bottom: var(--spacing-md); color: var(--text-primary);">✅ Incluye:</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: var(--spacing-sm) 0; color: var(--text-secondary); display: flex; align-items: center; gap: var(--spacing-sm);">🔹 5 páginas completas</li>
+                            <li style="padding: var(--spacing-sm) 0; color: var(--text-secondary); display: flex; align-items: center; gap: var(--spacing-sm);">🔹 Hasta 5 páginas adicionales (+$5 c/u)</li>
+                            <li style="padding: var(--spacing-sm) 0; color: var(--text-secondary); display: flex; align-items: center; gap: var(--spacing-sm);">🔹 Funcionalidades avanzadas</li>
+                            <li style="padding: var(--spacing-sm) 0; color: var(--text-secondary); display: flex; align-items: center; gap: var(--spacing-sm);">🔹 Mejor estructura para SEO</li>
+                            <li style="padding: var(--spacing-sm) 0; color: var(--text-secondary); display: flex; align-items: center; gap: var(--spacing-sm);">🔹 Diseño totalmente responsive</li>
+                            <li style="padding: var(--spacing-sm) 0; color: var(--text-secondary); display: flex; align-items: center; gap: var(--spacing-sm);">🔹 Panel de usuarios básico</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="margin-bottom: var(--spacing-xl);">
+                        <h4 style="font-size: 1.1rem; font-weight: 600; margin-bottom: var(--spacing-md); color: var(--text-primary);">💡 Webs posibles:</h4>
+                        <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-sm);">
+                            <span style="background: var(--bg-main); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius); font-size: 0.85rem; color: var(--text-muted); border: 1px solid var(--border-light);">Reservas avanzadas</span>
+                            <span style="background: var(--bg-main); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius); font-size: 0.85rem; color: var(--text-muted); border: 1px solid var(--border-light);">Panel de usuarios</span>
+                            <span style="background: var(--bg-main); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius); font-size: 0.85rem; color: var(--text-muted); border: 1px solid var(--border-light);">Tienda estática</span>
+                            <span style="background: var(--bg-main); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius); font-size: 0.85rem; color: var(--text-muted); border: 1px solid var(--border-light);">Blog completo</span>
+                            <span style="background: var(--bg-main); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius); font-size: 0.85rem; color: var(--text-muted); border: 1px solid var(--border-light);">Sitio de eventos</span>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <span style="display: inline-block; padding: var(--spacing-sm) var(--spacing-md); background: linear-gradient(135deg, #4facfe, #00f2fe); color: white; border-radius: var(--border-radius); font-size: 0.9rem; font-weight: 600; margin-bottom: var(--spacing-lg);">⏱️ 3-5 días</span>
+                        <br>
+                        <button class="btn btn-primary" style="width: 100%; margin-top: var(--spacing-md);" onclick="window.open('https://wa.me/5491140667516?text=Hola, estoy interesado en el plan Web Plus ($75)', '_blank')">🚀 Solicitar Web Plus</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modificadores Opcionales -->
+            <div class="fade-in" style="margin-top: var(--spacing-3xl); background: var(--bg-card); border-radius: var(--border-radius-lg); padding: var(--spacing-2xl); border: 1px solid var(--border-light);">
+                <h3 style="font-size: 1.8rem; font-weight: 700; text-align: center; margin-bottom: var(--spacing-xl); color: var(--text-primary);">🎨 Modificadores Opcionales (Extras)</h3>
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: var(--spacing-xl);">Personaliza aún más tu sitio con funcionalidades adicionales</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-lg);">
+                    <div style="background: var(--bg-main); padding: var(--spacing-lg); border-radius: var(--border-radius); border: 1px solid var(--border-light);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-sm);">
+                            <span style="font-weight: 600; color: var(--text-primary);">🌗 Modo Oscuro / Claro</span>
+                            <span style="font-weight: 700; color: var(--primary);">+$3</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">Plus ✔ / Pro ✔ / Landing ❌</div>
+                    </div>
+                    
+                    <div style="background: var(--bg-main); padding: var(--spacing-lg); border-radius: var(--border-radius); border: 1px solid var(--border-light);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-sm);">
+                            <span style="font-weight: 600; color: var(--text-primary);">🧭 Navegación Sticky</span>
+                            <span style="font-weight: 700; color: var(--primary);">+$2</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">Plus ✔ / Pro ✔ / Landing ❌</div>
+                    </div>
+                    
+                    <div style="background: var(--bg-main); padding: var(--spacing-lg); border-radius: var(--border-radius); border: 1px solid var(--border-light);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-sm);">
+                            <span style="font-weight: 600; color: var(--text-primary);">🛒 Carrito de Compras Simple</span>
+                            <span style="font-weight: 700; color: var(--primary);">+$7</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">Solo en Plus ✅</div>
+                    </div>
+                    
+                    <div style="background: var(--bg-main); padding: var(--spacing-lg); border-radius: var(--border-radius); border: 1px solid var(--border-light);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-sm);">
+                            <span style="font-weight: 600; color: var(--text-primary);">📩 Formulario de Contacto</span>
+                            <span style="font-weight: 700; color: #22c55e;">FREE</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">Plus ✔ / Pro ✔ / Landing (opcional)</div>
+                    </div>
+                    
+                    <div style="background: var(--bg-main); padding: var(--spacing-lg); border-radius: var(--border-radius); border: 1px solid var(--border-light);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-sm);">
+                            <span style="font-weight: 600; color: var(--text-primary);">📊 Gráficos o estadísticas</span>
+                            <span style="font-weight: 700; color: var(--primary);">+$5</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">Plus ✔ / Pro ✔</div>
+                    </div>
+                    
+                    <div style="background: var(--bg-main); padding: var(--spacing-lg); border-radius: var(--border-radius); border: 1px solid var(--border-light);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-sm);">
+                            <span style="font-weight: 600; color: var(--text-primary);">🏷️ Catálogo con filtros</span>
+                            <span style="font-weight: 700; color: var(--primary);">+$5</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">Solo en Plus ✅</div>
+                    </div>
+                    
+                    <div style="background: var(--bg-main); padding: var(--spacing-lg); border-radius: var(--border-radius); border: 1px solid var(--border-light);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-sm);">
+                            <span style="font-weight: 600; color: var(--text-primary);">🌐 Multilenguaje</span>
+                            <span style="font-weight: 700; color: var(--primary);">+$6</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">Plus ✔ / Pro ✔ / Landing ❌</div>
+                    </div>
+                    
+                    <div style="background: var(--bg-main); padding: var(--spacing-lg); border-radius: var(--border-radius); border: 1px solid var(--border-light);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-sm);">
+                            <span style="font-weight: 600; color: var(--text-primary);">🔒 Autenticación básica</span>
+                            <span style="font-weight: 700; color: var(--primary);">+$4</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">Solo en Plus o Pro ✅</div>
+                    </div>
+                    
+                    <div style="background: var(--bg-main); padding: var(--spacing-lg); border-radius: var(--border-radius); border: 1px solid var(--border-light);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-sm);">
+                            <span style="font-weight: 600; color: var(--text-primary);">🎞️ Galería animada</span>
+                            <span style="font-weight: 700; color: var(--primary);">+$4</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">Todos los planes ✔</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tabla de Comparación -->
+            <div class="fade-in" style="margin-top: var(--spacing-3xl); background: var(--bg-card); border-radius: var(--border-radius-lg); padding: var(--spacing-2xl); border: 1px solid var(--border-light); overflow-x: auto;">
+                <h3 style="font-size: 1.8rem; font-weight: 700; text-align: center; margin-bottom: var(--spacing-xl); color: var(--text-primary);">🔁 Comparación de Funcionalidades</h3>
+                
+                <table style="width: 100%; border-collapse: collapse; margin-top: var(--spacing-lg);">
+                    <thead>
+                        <tr style="background: var(--bg-main);">
+                            <th style="padding: var(--spacing-md); text-align: left; border: 1px solid var(--border-light); font-weight: 600; color: var(--text-primary);">Función</th>
+                            <th style="padding: var(--spacing-md); text-align: center; border: 1px solid var(--border-light); font-weight: 600; color: var(--text-primary);">Landing</th>
+                            <th style="padding: var(--spacing-md); text-align: center; border: 1px solid var(--border-light); font-weight: 600; color: var(--text-primary);">Pro</th>
+                            <th style="padding: var(--spacing-md); text-align: center; border: 1px solid var(--border-light); font-weight: 600; color: var(--text-primary);">Plus</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); color: var(--text-secondary);">Diseño Responsivo</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #22c55e; font-weight: 600;">✔</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #22c55e; font-weight: 600;">✔</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #22c55e; font-weight: 600;">✔</td>
+                        </tr>
+                        <tr style="background: var(--bg-main);">
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); color: var(--text-secondary);">Contacto o enlaces básicos</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #22c55e; font-weight: 600;">✔</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #22c55e; font-weight: 600;">✔</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #22c55e; font-weight: 600;">✔</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); color: var(--text-secondary);">Estructura multi-página</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #ef4444; font-weight: 600;">❌</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #22c55e; font-weight: 600;">✔ (3)</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #22c55e; font-weight: 600;">✔ (5)</td>
+                        </tr>
+                        <tr style="background: var(--bg-main);">
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); color: var(--text-secondary);">Animaciones suaves</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #ef4444; font-weight: 600;">❌</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #22c55e; font-weight: 600;">✔</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #22c55e; font-weight: 600;">✔</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); color: var(--text-secondary);">SEO básico</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #22c55e; font-weight: 600;">✔</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #22c55e; font-weight: 600;">✔</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #22c55e; font-weight: 600;">✔</td>
+                        </tr>
+                        <tr style="background: var(--bg-main);">
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); color: var(--text-secondary);">Panel de usuario o reservas</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #ef4444; font-weight: 600;">❌</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #f59e0b; font-weight: 600;">Opcional</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #22c55e; font-weight: 600;">✔</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); color: var(--text-secondary);">Dashboard, tienda o blog avanzado</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #ef4444; font-weight: 600;">❌</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #ef4444; font-weight: 600;">❌</td>
+                            <td style="padding: var(--spacing-md); border: 1px solid var(--border-light); text-align: center; color: #22c55e; font-weight: 600;">✔</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Entrega Incluye -->
+            <div class="fade-in" style="margin-top: var(--spacing-3xl); background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: var(--border-radius-lg); padding: var(--spacing-2xl); color: white; text-align: center;">
+                <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: var(--spacing-xl);">📦 Entrega Incluye</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-lg); margin-top: var(--spacing-xl);">
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: var(--spacing-lg); border-radius: var(--border-radius); backdrop-filter: blur(10px);">
+                        <div style="font-size: 2rem; margin-bottom: var(--spacing-md);">📁</div>
+                        <h4 style="font-weight: 600; margin-bottom: var(--spacing-sm);">Archivos optimizados</h4>
+                        <p style="font-size: 0.9rem; opacity: 0.9;">Código limpio y optimizado para web</p>
+                    </div>
+                    
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: var(--spacing-lg); border-radius: var(--border-radius); backdrop-filter: blur(10px);">
+                        <div style="font-size: 2rem; margin-bottom: var(--spacing-md);">💻</div>
+                        <h4 style="font-weight: 600; margin-bottom: var(--spacing-sm);">Código documentado</h4>
+                        <p style="font-size: 0.9rem; opacity: 0.9;">Fácil de editar y mantener</p>
+                    </div>
+                    
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: var(--spacing-lg); border-radius: var(--border-radius); backdrop-filter: blur(10px);">
+                        <div style="font-size: 2rem; margin-bottom: var(--spacing-md);">🚀</div>
+                        <h4 style="font-weight: 600; margin-bottom: var(--spacing-sm);">Instrucciones de hosting</h4>
+                        <p style="font-size: 0.9rem; opacity: 0.9;">Te ayudamos con la instalación</p>
+                    </div>
+                    
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: var(--spacing-lg); border-radius: var(--border-radius); backdrop-filter: blur(10px);">
+                        <div style="font-size: 2rem; margin-bottom: var(--spacing-md);">🛠️</div>
+                        <h4 style="font-weight: 600; margin-bottom: var(--spacing-sm);">Soporte técnico</h4>
+                        <p style="font-size: 0.9rem; opacity: 0.9;">7 días post-entrega</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CTA Final -->
+            <div class="section-cta fade-in" style="margin-top: var(--spacing-3xl);">
+                <h3 style="font-size: 2rem; font-weight: 700; margin-bottom: var(--spacing-lg); color: var(--text-primary);">🚀 ¿Listo para crear tu sitio?</h3>
+                <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: var(--spacing-xl); max-width: 600px; margin-left: auto; margin-right: auto;">Conversemos sobre tu proyecto y encontremos el plan perfecto para tus necesidades</p>
+                <div style="display: flex; gap: var(--spacing-lg); justify-content: center; flex-wrap: wrap;">
+                    <button class="btn btn-primary btn-expanded" onclick="window.open('https://wa.me/5491140667516?text=Hola, quiero consultar sobre los planes web', '_blank')">💬 Consultar por WhatsApp</button>
+                    <a href="#contact" class="btn btn-secondary btn-expanded">📧 Contactar por Email</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div style="display: flex; justify-content: center; gap: var(--spacing-xl); margin-bottom: var(--spacing-lg); flex-wrap: wrap;">
+                <a href="#home" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: var(--transition);">Inicio</a>
+                <a href="#about" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: var(--transition);">Sobre mí</a>
+                <a href="#portfolio" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: var(--transition);">Portfolio</a>
+                <a href="#contact" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: var(--transition);">Contacto</a>
+                <a href="blog.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: var(--transition);">Blog</a>
+            </div>
+            <p style="font-size: 1.1rem; margin-bottom: var(--spacing-sm); opacity: 0.9;">
+                Hecho con ❤️ y mucho ☕ por Marcelo
+            </p>
+            <p style="opacity: 0.7; font-size: 0.9rem;">
+                &copy; <span id="currentYear">2024</span> Marcelo. Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Panel de Administrador COMPLETO -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-content">
+            <div class="admin-header">
+                <h2 class="admin-title">👑 Panel de Administración</h2>
+                <button class="btn btn-secondary" id="closeAdminPanel">✕ Cerrar</button>
+            </div>
+            
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <span class="stat-number" id="totalUsers">0</span>
+                    <span class="stat-label">Usuarios Registrados</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="totalTestimonials">0</span>
+                    <span class="stat-label">Testimonios</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="avgRating">0</span>
+                    <span class="stat-label">Rating Promedio</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="todayVisits">127</span>
+                    <span class="stat-label">Visitas Hoy</span>
+                </div>
+            </div>
+            
+            <div class="admin-section">
+                <h3>🗂️ Gestión de Testimonios</h3>
+                <div id="adminTestimonialsList">
+                    <!-- Lista de testimonios para admin -->
+                </div>
+                <button class="btn btn-primary" id="exportTestimonials" style="margin-top: var(--spacing-md);">📥 Exportar Testimonios</button>
+            </div>
+            
+            <div class="admin-section">
+                <h3>👥 Usuarios Registrados</h3>
+                <div id="adminUsersList">
+                    <!-- Lista de usuarios para admin -->
+                </div>
+                <button class="btn btn-primary" id="exportUsers" style="margin-top: var(--spacing-md);">📥 Exportar Usuarios</button>
+            </div>
+            
+            <div class="admin-section">
+                <h3>⚙️ Configuraciones del Sitio</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-lg);">
+                    <button class="btn btn-secondary" id="clearCache">🗑️ Limpiar Cache</button>
+                    <button class="btn btn-secondary" id="backupData">💾 Backup Datos</button>
+                    <button class="btn btn-secondary" id="resetDemo">🔄 Reset Demo</button>
+                    <button class="btn btn-secondary" id="maintenanceMode">🚧 Modo Mantenimiento</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modales -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <div style="text-align: center; margin-bottom: var(--spacing-xl);">
+                <h3 id="modalTitle" style="font-size: 1.5rem; font-weight: 700; color: var(--text-primary);">Iniciar Sesión</h3>
+            </div>
+            <form id="authForm">
+                <div class="form-group">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" class="form-input" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="password">Contraseña</label>
+                    <input type="password" class="form-input" id="password" required>
+                </div>
+                <div class="form-group" id="nameGroup" style="display: none;">
+                    <label class="form-label" for="name">Nombre</label>
+                    <input type="text" class="form-input" id="name">
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="modal-btn primary" id="authSubmit">Iniciar Sesión</button>
+                    <button type="button" class="modal-btn secondary" id="toggleAuth">Registrarse</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="testimonialModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeTestimonial">&times;</button>
+            <div style="text-align: center; margin-bottom: var(--spacing-xl);">
+                <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--text-primary);">Agregar Testimonio</h3>
+            </div>
+            <form id="testimonialForm">
+                <div class="form-group">
+                    <label class="form-label">Calificación</label>
+                    <div class="rating-input" id="ratingInput">
+                        <span class="star-input" data-rating="1">⭐</span>
+                        <span class="star-input" data-rating="2">⭐</span>
+                        <span class="star-input" data-rating="3">⭐</span>
+                        <span class="star-input" data-rating="4">⭐</span>
+                        <span class="star-input" data-rating="5">⭐</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="testimonialText">Tu experiencia</label>
+                    <textarea class="form-input" id="testimonialText" rows="4" placeholder="Cuéntanos sobre tu experiencia..." required></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="modal-btn primary">Enviar Testimonio</button>
+                    <button type="button" class="modal-btn secondary" id="cancelTestimonial">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="success-message" id="successMessage">✅ Acción completada correctamente</div>
+    <div>>
+    <!-- Blog Section -->
+    <!-- Sección de blog eliminada -->
+
+    <!-- JavaScript COMPLETO -->
+    <script>
+        // Variables globales
+        let currentUser = null;
+        let isLoggedIn = false;
+        let currentRating = 0;
+        
+        const adminCredentials = {
+            email: 'benjaminroccoherrera@gmail.com',
+            password: 'BenjaMarcePau',
+            name: 'Benjamin Rocco',
+            role: 'admin'
+        };
+
+        // DOM helpers
+        const $ = id => document.getElementById(id);
+        const $$ = selector => document.querySelectorAll(selector);
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            $('currentYear').textContent = new Date().getFullYear();
+            
+            initTheme();
+            initScrollAnimations();
+            initNavigation();
+            initAuth();
+            initTestimonials();
+            checkExistingSession();
+            
+            // Forzar carga de testimonios después de un pequeño delay
+            setTimeout(() => {
+                loadTestimonials();
+                console.log('Testimonios forzados a cargar');
+            }, 1000);
+            
+            console.log('Portfolio cargado correctamente');
+        });
+
+        // Gestión de temas
+        function initTheme() {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            $('themeToggle').textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+
+            $('themeToggle').addEventListener('click', () => {
+                const theme = document.documentElement.getAttribute('data-theme');
+                const newTheme = theme === 'dark' ? 'light' : 'dark';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                $('themeToggle').textContent = newTheme === 'dark' ? '☀️' : '🌙';
+                
+                showSuccessMessage('Tema cambiado');
+            });
+        }
+
+        // Animaciones de scroll
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+            $$('.fade-in, .slide-in-left, .slide-in-right, .scale-in').forEach(el => observer.observe(el));
+
+            // Header scroll effect
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        $('header').classList.toggle('scrolled', window.scrollY > 100);
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        }
+
+        // Navegación
+        function initNavigation() {
+            $$('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            // Active navigation
+            const sections = $$('section[id]');
+            const navLinks = $$('.nav-link');
+            
+            const updateActiveNav = () => {
+                let activeSection = '';
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= 100 && rect.bottom >= 100) {
+                        activeSection = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href') === `#${activeSection}`);
+                });
+            };
+            
+            let navTicking = false;
+            window.addEventListener('scroll', () => {
+                if (!navTicking) {
+                    requestAnimationFrame(() => {
+                        updateActiveNav();
+                        navTicking = false;
+                    });
+                    navTicking = true;
+                }
+            });
+        }
+
+        // Sistema de autenticación
+        function initAuth() {
+            // Login Dropdown
+            const loginDropdown = $('loginDropdown');
+            const loginDropdownBtn = $('loginDropdownBtn');
+            const loginDropdownContent = $('loginDropdownContent');
+            
+            loginDropdownBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                loginDropdown.classList.toggle('active');
+            });
+            
+            $('loginOptionBtn').addEventListener('click', () => {
+                loginDropdown.classList.remove('active');
+                openAuthModal();
+            });
+            
+            $('registerOptionBtn').addEventListener('click', () => {
+                loginDropdown.classList.remove('active');
+                openAuthModal();
+                toggleAuthMode(); // Cambiar a modo registro
+            });
+            
+            $('closeModal').addEventListener('click', closeAuthModal);
+            $('toggleAuth').addEventListener('click', toggleAuthMode);
+            $('authForm').addEventListener('submit', handleAuth);
+            
+            const userAvatar = $('userAvatar');
+            const userDropdown = $('userDropdown');
+            
+            if (userAvatar) {
+                userAvatar.addEventListener('click', () => userDropdown.classList.toggle('active'));
+            }
+            
+            $('logoutBtn').addEventListener('click', logout);
+            $('profileBtn').addEventListener('click', () => alert('Funcionalidad de perfil en desarrollo'));
+            $('reviewBtn').addEventListener('click', openTestimonialModal);
+            $('adminPanelBtn').addEventListener('click', openAdminPanel);
+            
+            document.addEventListener('click', e => {
+                // Cerrar dropdown de login
+                if (!loginDropdown.contains(e.target)) {
+                    loginDropdown.classList.remove('active');
+                }
+                // Cerrar dropdown de usuario
+                if (!$('userMenu').contains(e.target)) {
+                    userDropdown.classList.remove('active');
+                }
+            });
+        }
+
+        function openAuthModal() { $('authModal').classList.add('active'); }
+        function closeAuthModal() { 
+            $('authModal').classList.remove('active'); 
+            resetAuthForm();
+        }
+
+        function toggleAuthMode() {
+            const nameGroup = $('nameGroup');
+            const isLogin = nameGroup.style.display === 'none';
+            
+            nameGroup.style.display = isLogin ? 'block' : 'none';
+            $('toggleAuth').textContent = isLogin ? 'Iniciar Sesión' : 'Registrarse';
+            $('authSubmit').textContent = isLogin ? 'Registrarse' : 'Iniciar Sesión';
+            $('modalTitle').textContent = isLogin ? 'Registrarse' : 'Iniciar Sesión';
+        }
+
+        function handleAuth(e) {
+            e.preventDefault();
+            const email = $('email').value;
+            const password = $('password').value;
+            const name = $('name').value;
+            const isRegister = $('nameGroup').style.display !== 'none';
+
+            isRegister ? register(email, password, name) : login(email, password);
+        }
+
+        function login(email, password) {
+            if (email === adminCredentials.email && password === adminCredentials.password) {
+                currentUser = adminCredentials;
+                isLoggedIn = true;
+                showAdminInterface();
+                closeAuthModal();
+                showSuccessMessage('¡Bienvenido Administrador!');
+                saveSession();
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                currentUser = user;
+                isLoggedIn = true;
+                showUserInterface();
+                closeAuthModal();
+                showSuccessMessage(`¡Bienvenido ${user.name}!`);
+                saveSession();
+            } else {
+                alert('Credenciales incorrectas');
+            }
+        }
+
+        function register(email, password, name) {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            if (users.find(u => u.email === email)) {
+                alert('El email ya está registrado');
+                return;
+            }
+
+            const newUser = {
+                id: Date.now(),
+                email, password, name,
+                role: 'user',
+                avatar: name.charAt(0).toUpperCase(),
+                hasReviewed: false
+            };
+
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            currentUser = newUser;
+            isLoggedIn = true;
+            showUserInterface();
+            closeAuthModal();
+            showSuccessMessage('¡Registro exitoso!');
+            saveSession();
+        }
+
+        function logout() {
+            currentUser = null;
+            isLoggedIn = false;
+            localStorage.removeItem('currentSession');
+            
+            $('loginDropdown').style.display = 'block';
+            $('userMenu').style.display = 'none';
+            $('userDropdown').classList.remove('active');
+            
+            updateTestimonialButton();
+            showSuccessMessage('Sesión cerrada');
+        }
+
+        function saveSession() {
+            localStorage.setItem('currentSession', JSON.stringify(currentUser));
+        }
+
+        function checkExistingSession() {
+            const session = localStorage.getItem('currentSession');
+            if (session) {
+                currentUser = JSON.parse(session);
+                isLoggedIn = true;
+                currentUser.role === 'admin' ? showAdminInterface() : showUserInterface();
+            }
+        }
+
+        function showUserInterface() {
+            $('loginDropdown').style.display = 'none';
+            $('userMenu').style.display = 'block';
+            $('userAvatar').textContent = currentUser.avatar || currentUser.name.charAt(0).toUpperCase();
+            $('adminPanelBtn').style.display = 'none';
+            updateTestimonialButton();
+        }
+
+        function showAdminInterface() {
+            $('loginDropdown').style.display = 'none';
+            $('userMenu').style.display = 'block';
+            $('userAvatar').textContent = '👑';
+            $('adminPanelBtn').style.display = 'block';
+            updateTestimonialButton();
+        }
+
+        function resetAuthForm() {
+            $('authForm').reset();
+            $('nameGroup').style.display = 'none';
+            $('toggleAuth').textContent = 'Registrarse';
+            $('authSubmit').textContent = 'Iniciar Sesión';
+            $('modalTitle').textContent = 'Iniciar Sesión';
+        }
+
+        // Panel de Administrador
+        function openAdminPanel() {
+            if (currentUser && currentUser.role === 'admin') {
+                $('adminPanel').classList.add('active');
+                loadAdminStats();
+                loadAdminTestimonials();
+                loadAdminUsers();
+                setupAdminActions();
+            }
+        }
+
+        function setupAdminActions() {
+            $('closeAdminPanel').addEventListener('click', () => {
+                $('adminPanel').classList.remove('active');
+            });
+            
+            $('exportTestimonials').addEventListener('click', exportTestimonials);
+            $('exportUsers').addEventListener('click', exportUsers);
+            $('clearCache').addEventListener('click', () => {
+                localStorage.clear();
+                showSuccessMessage('Cache limpiado');
+            });
+            $('backupData').addEventListener('click', backupData);
+            $('resetDemo').addEventListener('click', resetDemo);
+            $('maintenanceMode').addEventListener('click', toggleMaintenance);
+        }
+
+        function loadAdminStats() {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const testimonials = JSON.parse(localStorage.getItem('testimonials') || '[]');
+            const avgRating = testimonials.length > 0 ? 
+                (testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length).toFixed(1) : 0;
+
+            $('totalUsers').textContent = users.length;
+            $('totalTestimonials').textContent = testimonials.length;
+            $('avgRating').textContent = avgRating;
+        }
+
+        function loadAdminTestimonials() {
+            const testimonials = JSON.parse(localStorage.getItem('testimonials') || '[]');
+            const container = $('adminTestimonialsList');
+            
+            container.innerHTML = testimonials.map(t => `
+                <div class="admin-item">
+                    <div class="admin-item-info">
+                        <strong>${t.name}</strong> - ${generateStars(t.rating)}
+                        <p style="color: var(--text-muted); margin-top: var(--spacing-xs);">"${t.text.substring(0, 80)}..."</p>
+                    </div>
+                    <div class="admin-item-actions">
+                        <button class="btn btn-secondary" onclick="deleteTestimonial(${t.id})" style="padding: var(--spacing-sm);">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadAdminUsers() {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const container = $('adminUsersList');
+            
+            container.innerHTML = users.map(u => `
+                <div class="admin-item">
+                    <div class="admin-item-info">
+                        <strong>${u.name}</strong> (${u.email})
+                        <span style="color: var(--text-muted);"> - ${u.hasReviewed ? '✅ Ha reseñado' : '⏳ Sin reseña'}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function exportTestimonials() {
+            const testimonials = JSON.parse(localStorage.getItem('testimonials') || '[]');
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(testimonials, null, 2));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "testimonials.json");
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+            showSuccessMessage('Testimonios exportados');
+        }
+
+        function exportUsers() {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(users, null, 2));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "users.json");
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+            showSuccessMessage('Usuarios exportados');
+        }
+
+        function backupData() {
+            const allData = {
+                users: JSON.parse(localStorage.getItem('users') || '[]'),
+                testimonials: JSON.parse(localStorage.getItem('testimonials') || '[]'),
+                theme: localStorage.getItem('theme') || 'light',
+                timestamp: new Date().toISOString()
+            };
+            
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allData, null, 2));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", `portfolio-backup-${new Date().toISOString().split('T')[0]}.json`);
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+            showSuccessMessage('Backup creado exitosamente');
+        }
+
+        function resetDemo() {
+            if (confirm('¿Estás seguro de que quieres resetear todos los datos demo?')) {
+                localStorage.removeItem('users');
+                localStorage.removeItem('testimonials');
+                loadTestimonials(); // Recargar testimonios por defecto
+                loadAdminStats();
+                loadAdminTestimonials();
+                loadAdminUsers();
+                showSuccessMessage('Datos demo reseteados');
+            }
+        }
+
+        function toggleMaintenance() {
+            const isMaintenanceMode = localStorage.getItem('maintenanceMode') === 'true';
+            localStorage.setItem('maintenanceMode', !isMaintenanceMode);
+            showSuccessMessage(`Modo mantenimiento ${!isMaintenanceMode ? 'activado' : 'desactivado'}`);
+        }
+
+        // Sistema de testimonios
+        function initTestimonials() {
+            loadTestimonials();
+            
+            $$('.star-input').forEach(star => {
+                star.addEventListener('click', setRating);
+                star.addEventListener('mouseenter', highlightStars);
+            });
+            
+            $('ratingInput').addEventListener('mouseleave', resetStarHighlight);
+            $('testimonialForm').addEventListener('submit', submitTestimonial);
+            $('closeTestimonial').addEventListener('click', closeTestimonialModal);
+            $('cancelTestimonial').addEventListener('click', closeTestimonialModal);
+            $('addTestimonialBtn').addEventListener('click', openTestimonialModal);
+        }
+
+        function loadTestimonials() {
+            console.log('Cargando testimonios...');
+            const testimonials = JSON.parse(localStorage.getItem('testimonials') || '[]');
+            
+            if (testimonials.length === 0) {
+                console.log('No hay testimonios, creando por defecto...');
+                const defaultTestimonials = [
+                    {
+                        id: 1,
+                        name: 'María García',
+                        text: 'Marcelo desarrolló nuestro sitio WordPress y el resultado superó todas nuestras expectativas. Su conocimiento técnico y atención al detalle son excepcionales.',
+                        rating: 5,
+                        avatar: 'M'
+                    },
+                    {
+                        id: 2,
+                        name: 'Carlos Rodríguez',
+                        text: 'Trabajar con Marcelo fue increíble. Entregó el proyecto antes de tiempo con una calidad impecable. Su especialización en WordPress es evidente.',
+                        rating: 5,
+                        avatar: 'C'
+                    },
+                    {
+                        id: 3,
+                        name: 'Ana López',
+                        text: 'Su capacidad para resolver problemas complejos y crear soluciones elegantes es impresionante. Definitivamente lo recomiendo.',
+                        rating: 4,
+                        avatar: 'A'
+                    }
+                ];
+                localStorage.setItem('testimonials', JSON.stringify(defaultTestimonials));
+                displayTestimonials(defaultTestimonials);
+            } else {
+                console.log('Testimonios encontrados:', testimonials.length);
+                displayTestimonials(testimonials);
+            }
+        }
+
+        function displayTestimonials(testimonials) {
+            const container = $('testimonialsContainer');
+            if (!container) {
+                console.error('Contenedor de testimonios no encontrado');
+                return;
+            }
+            
+            console.log('Mostrando testimonios:', testimonials);
+            
+            container.innerHTML = testimonials.map(t => {
+                const isUserOwn = currentUser && currentUser.id === t.userId;
+                // REGLA NUEVA: Solo admin puede eliminar testimonios
+                const canDelete = currentUser && currentUser.role === 'admin';
+                
+                return `
+                    <div class="testimonial-card fade-in ${isUserOwn ? 'user-own' : ''}">
+                        <div class="testimonial-avatar">${t.avatar}</div>
+                        <p style="font-style: italic; color: var(--text-muted); margin-bottom: var(--spacing-lg); line-height: 1.6;">"${t.text}"</p>
+                        <div style="display: flex; justify-content: center; gap: var(--spacing-xs); margin-bottom: var(--spacing-sm);">
+                            ${generateStars(t.rating)}
+                        </div>
+                        <h4 style="font-weight: 700; color: var(--text-primary);">${t.name}</h4>
+                        ${canDelete ? 
+                            `<button class="btn btn-secondary" onclick="deleteTestimonial(${t.id})" style="margin-top: var(--spacing-md); padding: var(--spacing-sm);">👑 Eliminar (Admin)</button>` : ''}
+                    </div>
+                `;
+            }).join('');
+            
+            // Re-aplicar animaciones a los nuevos elementos
+            setTimeout(() => {
+                $$('.testimonial-card.fade-in').forEach(card => {
+                    card.classList.add('visible');
+                });
+            }, 100);
+        }
+
+        function generateStars(rating) {
+            return Array.from({length: 5}, (_, i) => 
+                `<span style="color: #ffd700; font-size: 1.2rem;">${i < rating ? '⭐' : '☆'}</span>`
+            ).join('');
+        }
+
+        function updateTestimonialButton() {
+            const btn = $('addTestimonialBtn');
+            if (btn) {
+                if (!isLoggedIn || !currentUser) {
+                    btn.style.display = 'none';
+                    return;
+                }
+                
+                // Verificar si el usuario ya tiene un testimonio
+                const testimonials = JSON.parse(localStorage.getItem('testimonials') || '[]');
+                const userTestimonial = testimonials.find(t => t.userId === currentUser.id);
+                
+                // REGLA: Admin puede agregar múltiples, usuario común solo 1
+                const shouldShow = currentUser.role === 'admin' || !userTestimonial;
+                btn.style.display = shouldShow ? 'inline-flex' : 'none';
+                
+                // Actualizar texto del botón según el rol
+                if (currentUser.role === 'admin') {
+                    btn.innerHTML = '👑 Agregar Testimonio (Admin)';
+                } else if (!userTestimonial) {
+                    btn.innerHTML = '⭐ Agregar mi Testimonio';
+                }
+            }
+        }
+
+        function openTestimonialModal() {
+            if (!isLoggedIn) {
+                openAuthModal();
+                return;
+            }
+            
+            // Verificar si el usuario ya tiene un testimonio (doble verificación)
+            const testimonials = JSON.parse(localStorage.getItem('testimonials') || '[]');
+            const userTestimonial = testimonials.find(t => t.userId === currentUser.id);
+            
+            if (userTestimonial && currentUser.role !== 'admin') {
+                alert('Ya has dejado un testimonio. Solo se permite uno por usuario. Puedes eliminar tu testimonio actual si deseas escribir uno nuevo.');
+                return;
+            }
+            
+            $('testimonialModal').classList.add('active');
+        }
+
+        function closeTestimonialModal() {
+            $('testimonialModal').classList.remove('active');
+            $('testimonialForm').reset();
+            currentRating = 0;
+            resetStarHighlight();
+        }
+
+        function setRating(e) {
+            currentRating = parseInt(e.target.dataset.rating);
+            updateStarDisplay();
+        }
+
+        function highlightStars(e) {
+            const rating = parseInt(e.target.dataset.rating);
+            $$('.star-input').forEach((star, index) => {
+                star.style.opacity = index < rating ? '1' : '0.3';
+            });
+        }
+
+        function resetStarHighlight() {
+            updateStarDisplay();
+        }
+
+        function updateStarDisplay() {
+            $$('.star-input').forEach((star, index) => {
+                star.style.opacity = index < currentRating ? '1' : '0.3';
+            });
+        }
+
+        function submitTestimonial(e) {
+            e.preventDefault();
+            
+            if (currentRating === 0) {
+                alert('Por favor selecciona una calificación');
+                return;
+            }
+
+            const text = $('testimonialText').value;
+            const testimonials = JSON.parse(localStorage.getItem('testimonials') || '[]');
+            
+            // REGLA: Usuario común solo puede tener 1 testimonio, admin múltiples
+            const userTestimonial = testimonials.find(t => t.userId === currentUser.id);
+            if (userTestimonial && currentUser.role !== 'admin') {
+                alert('⚠️ LÍMITE ALCANZADO: Los usuarios comunes solo pueden tener 1 testimonio. Elimina el actual si deseas escribir uno nuevo.');
+                closeTestimonialModal();
+                return;
+            }
+            
+            const newTestimonial = {
+                id: Date.now(),
+                name: currentUser.name,
+                text: text,
+                rating: currentRating,
+                avatar: currentUser.avatar || currentUser.name.charAt(0).toUpperCase(),
+                userId: currentUser.id,
+                isAdmin: currentUser.role === 'admin'
+            };
+
+            testimonials.push(newTestimonial);
+            localStorage.setItem('testimonials', JSON.stringify(testimonials));
+            
+            // Solo marcar como reseñado si no es admin
+            if (currentUser.role !== 'admin') {
+                currentUser.hasReviewed = true;
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const userIndex = users.findIndex(u => u.id === currentUser.id);
+                if (userIndex !== -1) {
+                    users[userIndex].hasReviewed = true;
+                    localStorage.setItem('users', JSON.stringify(users));
+                }
+                saveSession();
+            }
+            
+            displayTestimonials(testimonials);
+            closeTestimonialModal();
+            updateTestimonialButton();
+            
+            const roleMsg = currentUser.role === 'admin' ? '(Como Admin)' : '(Como Usuario)';
+            showSuccessMessage(`¡Testimonio agregado exitosamente! ${roleMsg}`);
+            
+            // Actualizar también en el panel de admin si está abierto
+            if ($('adminPanel').classList.contains('active')) {
+                loadAdminStats();
+                loadAdminTestimonials();
+            }
+        }
+
+        function deleteTestimonial(id) {
+            if (!currentUser) {
+                alert('⚠️ Debes estar logueado para eliminar testimonios');
+                return;
+            }
+            
+            // REGLA NUEVA: SOLO ADMIN puede eliminar testimonios
+            if (currentUser.role !== 'admin') {
+                alert('🚫 ACCESO DENEGADO: Solo el administrador puede eliminar testimonios');
+                return;
+            }
+            
+            const testimonials = JSON.parse(localStorage.getItem('testimonials') || '[]');
+            const testimonial = testimonials.find(t => t.id === id);
+            
+            if (!testimonial) {
+                alert('❌ Testimonio no encontrado');
+                return;
+            }
+            
+            const confirmMessage = `👑 ADMIN: ¿Eliminar testimonio de "${testimonial.name}"?`;
+                
+            if (confirm(confirmMessage)) {
+                const filtered = testimonials.filter(t => t.id !== id);
+                localStorage.setItem('testimonials', JSON.stringify(filtered));
+                
+                // Si se eliminó el testimonio de un usuario, actualizar su estado
+                if (testimonial.userId && testimonial.userId !== currentUser.id) {
+                    const users = JSON.parse(localStorage.getItem('users') || '[]');
+                    const userIndex = users.findIndex(u => u.id === testimonial.userId);
+                    if (userIndex !== -1) {
+                        users[userIndex].hasReviewed = false;
+                        localStorage.setItem('users', JSON.stringify(users));
+                    }
+                }
+                
+                displayTestimonials(filtered);
+                updateTestimonialButton();
+                showSuccessMessage(`👑 Admin eliminó testimonio de "${testimonial.name}"`);
+                
+                if ($('adminPanel').classList.contains('active')) {
+                    loadAdminStats();
+                    loadAdminTestimonials();
+                }
+            }
+        }
+
+        function showSuccessMessage(message) {
+            const el = $('successMessage');
+            el.textContent = message;
+            el.classList.add('show');
+            setTimeout(() => el.classList.remove('show'), 3000);
+        }
+
+        // Hover effects para portfolio items
+        $$('.portfolio-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px)';
+                this.style.boxShadow = 'var(--shadow-lg)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+                this.style.boxShadow = '';
+            });
+        });
+
+        // Hover effects para workflow steps
+        $$('.workflow-step').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.boxShadow = 'var(--shadow-lg)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+                this.style.boxShadow = '';
+            });
+        });
+
+        // Hover effects para stack categories
+        $$('.stack-category').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.boxShadow = 'var(--shadow-lg)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+                this.style.boxShadow = '';
+            });
+        });
+
+        // Hover effects para tech items
+        $$('.tech-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+                this.style.boxShadow = 'var(--shadow-md)';
+                this.style.borderColor = 'var(--primary)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+                this.style.boxShadow = '';
+                this.style.borderColor = '';
+            });
+        });
+
+        // Hover effects para contact items
+        $$('[style*="text-align: center"][style*="padding: var(--spacing-2xl)"]').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.boxShadow = 'var(--shadow-lg)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+                this.style.boxShadow = '';
+            });
+        });
+
+        // Funcionalidad de botones "Leer más" en blog
+        function initBlogReadMore() {
+            $$('.read-more').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSuccessMessage('Artículo próximamente disponible');
+                });
+            });
+        }
+
+        // Inicializar funcionalidad de blog
+        initBlogReadMore();
+
+        // Funcionalidad mejorada para skill tags
+        $$('.skill-tag').forEach(tag => {
+            tag.addEventListener('mouseenter', function() {
+                this.style.background = 'var(--primary)';
+                this.style.color = 'white';
+                this.style.borderColor = 'var(--primary)';
+                this.style.transform = 'translateY(-3px)';
+            });
+            
+            tag.addEventListener('mouseleave', function() {
+                this.style.background = '';
+                this.style.color = '';
+                this.style.borderColor = '';
+                this.style.transform = '';
+            });
+        });
+
+        // Event listeners
+        window.addEventListener('click', e => {
+            if (e.target === $('authModal')) closeAuthModal();
+            if (e.target === $('testimonialModal')) closeTestimonialModal();
+            if (e.target === $('adminPanel')) $('adminPanel').classList.remove('active');
+        });
+
+        window.addEventListener('load', () => {
+            $$('a[href^="http"]').forEach(link => {
+                if (link.hostname !== window.location.hostname) {
+                    link.rel = 'noopener';
+                }
+            });
+
+            // Función para el menú hamburger móvil
+            const mobileMenuToggle = $('#mobileMenuToggle');
+            const navLinks = $('#navLinks');
+
+            if (mobileMenuToggle && navLinks) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+                    
+                    // Actualizar aria-expanded
+                    const isExpanded = navLinks.classList.contains('active');
+                    this.setAttribute('aria-expanded', isExpanded);
+                    this.setAttribute('aria-label', isExpanded ? 'Cerrar menú' : 'Abrir menú');
+                });
+
+                // Cerrar menú móvil al hacer clic en un enlace
+                $$('.nav-link').forEach(link => {
+                    link.addEventListener('click', function() {
+                        if (navLinks.classList.contains('active')) {
+                            mobileMenuToggle.classList.remove('active');
+                            navLinks.classList.remove('active');
+                            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                            mobileMenuToggle.setAttribute('aria-label', 'Abrir menú');
+                        }
+                    });
+                });
+
+                // Cerrar menú móvil al hacer clic fuera
+                document.addEventListener('click', function(e) {
+                    const header = $('#header');
+                    if (!header.contains(e.target) && navLinks.classList.contains('active')) {
+                        mobileMenuToggle.classList.remove('active');
+                        navLinks.classList.remove('active');
+                        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                        mobileMenuToggle.setAttribute('aria-label', 'Abrir menú');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

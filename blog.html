@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Marcelo | Desarrollador Web</title>
+    <meta name="description" content="Blog de Marcelo sobre desarrollo web, tecnologías modernas y mejores prácticas.">
+    
+    <!-- Favicon optimizado -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+    
+    <!-- Google Fonts optimizado -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- CSS Ultra Optimizado -->
+    <style>
+        :root {
+            --primary: #667eea; --primary-dark: #4c63d2; --accent: #f093fb;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --text-primary: #2d3748; --text-secondary: #4a5568; --text-muted: #718096;
+            --bg-main: #f7fafc; --bg-section: #ffffff; --bg-card: #ffffff;
+            --border-light: #e2e8f0; --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 25px rgba(0,0,0,0.15); --shadow-glow: 0 0 30px rgba(102, 126, 234, 0.3);
+            --spacing-sm: 0.5rem; --spacing-md: 1rem; --spacing-lg: 1.5rem; 
+            --spacing-xl: 2rem; --spacing-2xl: 3rem; --spacing-3xl: 4rem;
+            --border-radius: 12px; --border-radius-lg: 20px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        [data-theme="dark"] {
+            --text-primary: #f7fafc; --text-secondary: #e2e8f0; --text-muted: #a0aec0;
+            --bg-main: #0f0f23; --bg-section: #16213e; --bg-card: #1a202c;
+            --border-light: #2d3748; --shadow-glow: 0 0 30px rgba(102, 126, 234, 0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Roboto', system-ui, sans-serif; line-height: 1.6;
+            color: var(--text-primary); background: var(--bg-main);
+            transition: var(--transition); overflow-x: hidden;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--spacing-md); }
+
+        /* Header */
+        .header { position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); z-index: 1000; border-bottom: 1px solid var(--border-light); transition: var(--transition); }
+        [data-theme="dark"] .header { background: rgba(30, 41, 59, 0.95); }
+        .nav { display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-md) 0; }
+        .logo { font-size: 1.8rem; font-weight: 900; color: var(--text-primary); text-decoration: none; }
+        .logo-dot {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+        .nav-link { color: var(--text-secondary); text-decoration: none; font-weight: 500; padding: var(--spacing-sm) var(--spacing-md); transition: var(--transition); }
+        .nav-link:hover { color: var(--primary); }
+        .theme-toggle { background: var(--gradient-primary); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; transition: var(--transition); font-size: 1.2rem; }
+
+        /* Blog Styles */
+        .blog-header { padding: 120px 0 60px; text-align: center; background: var(--bg-section); }
+        .blog-title { font-size: 3rem; font-weight: 900; margin-bottom: var(--spacing-lg); }
+        .blog-subtitle { font-size: 1.3rem; color: var(--text-muted); }
+        
+        .blog-content { padding: var(--spacing-3xl) 0; }
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: var(--spacing-2xl); }
+        .blog-card { background: var(--bg-card); border-radius: var(--border-radius-lg); overflow: hidden; border: 1px solid var(--border-light); transition: var(--transition); }
+        .blog-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+        .blog-image { height: 200px; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white; }
+        .blog-body { padding: var(--spacing-xl); }
+        .blog-meta { display: flex; gap: var(--spacing-md); margin-bottom: var(--spacing-md); font-size: 0.9rem; color: var(--text-muted); }
+        .blog-category { background: var(--primary); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; }
+        .blog-card-title { font-size: 1.3rem; font-weight: 700; margin-bottom: var(--spacing-sm); }
+        .blog-excerpt { color: var(--text-muted); margin-bottom: var(--spacing-lg); transition: var(--transition); }
+        .read-more { color: var(--primary); text-decoration: none; font-weight: 600; transition: var(--transition); cursor: pointer; }
+        .read-more:hover { color: var(--accent); transform: translateX(5px); }
+
+        .coming-soon { text-align: center; padding: var(--spacing-3xl) 0; }
+        .coming-soon h2 { font-size: 2rem; margin-bottom: var(--spacing-lg); color: var(--text-primary); }
+        .coming-soon p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: var(--spacing-xl); }
+        .back-btn { background: var(--gradient-primary); color: white; padding: var(--spacing-lg) var(--spacing-2xl); border-radius: var(--border-radius); text-decoration: none; font-weight: 600; transition: var(--transition); }
+        .back-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
+
+        /* Footer */
+        .footer { background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%); color: white; padding: var(--spacing-2xl) 0; text-align: center; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .blog-title { font-size: 2.2rem; }
+            .blog-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">Marcelo<span class="logo-dot">.</span></a>
+                <div style="display: flex; gap: var(--spacing-lg); align-items: center;">
+                    <a href="index.html" class="nav-link">← Volver al Portfolio</a>
+                    <button class="theme-toggle" id="themeToggle">🌙</button>
+            </div>
+            </nav>
+        </div>
+        </header>
+
+    <!-- Blog Header -->
+    <section class="blog-header">
+        <div class="container">
+            <h1 class="blog-title">Blog de Desarrollo</h1>
+            <p class="blog-subtitle">Artículos sobre tecnologías modernas y mejores prácticas</p>
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <section class="blog-content">
+        <div class="container">
+            <!-- Bloque Marcelo -->
+            <div class="blog-entry fade-in-up" style="background: var(--bg-card); border-radius: var(--border-radius-lg); box-shadow: var(--shadow-md); padding: var(--spacing-2xl); margin-bottom: var(--spacing-2xl); border: 1px solid var(--primary);">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: var(--spacing-md);">
+                    <span style="font-size: 2rem;">👤</span>
+                    <div>
+                        <h3 class="entry-title" style="margin: 0;">Marcelo</h3>
+                        <span class="entry-date" style="color: var(--text-muted); font-size: 0.95rem;">Fecha: 15 de diciembre de 2023</span>
+                    </div>
+                </div>
+                <div style="display: grid; gap: var(--spacing-lg);">
+                    <div style="background: var(--bg-main); border-radius: var(--border-radius); padding: var(--spacing-lg); border: 1px solid var(--border-light);">
+                        <h4 style="margin-bottom: .5rem; color: var(--primary);">Sobre mí</h4>
+                        <p style="color: var(--text-secondary);">Soy Marcelo, desarrollador web full stack apasionado por la tecnología, la creatividad y el aprendizaje constante. Me especializo en crear soluciones digitales que combinan funcionalidad, diseño y experiencia de usuario.</p>
+                    </div>
+                    <div style="background: var(--bg-main); border-radius: var(--border-radius); padding: var(--spacing-lg); border: 1px solid var(--border-light);">
+                        <h4 style="margin-bottom: .5rem; color: var(--primary);">Intereses</h4>
+                        <ul style="color: var(--text-secondary); padding-left: 1.2rem;">
+                            <li>Desarrollo web moderno (CSS, Html, WordPress)</li>
+                            <li>Automatización y productividad</li>
+                            <li>Diseño UI/UX</li>
+                            <li>Aprendizaje de nuevas tecnologías</li>
+                            <li>Educación y compartir conocimiento</li>
+                            <li>Crear webs fue mi hobbie por 2 años</li>
+                        </ul>
+                    </div>
+                    <div style="background: var(--bg-main); border-radius: var(--border-radius); padding: var(--spacing-lg); border: 1px solid var(--border-light);">
+                        <h4 style="margin-bottom: .5rem; color: var(--primary);">Hobbies</h4>
+                        <ul style="color: var(--text-secondary); padding-left: 1.2rem;">
+                            <li>Aprender nuevas habilidades para webs</li>
+                            <li>Estar con amigos y familia</li>
+                            <li>Escuchar música y hacer Deporte</li>
+                            <li>Actividades al aire libre</li>
+                            <li>Jugar al padel o futbol con amigos</li>
+                        </ul>
+                    </div>
+                    <div style="background: var(--bg-main); border-radius: var(--border-radius); padding: var(--spacing-lg); border: 1px solid var(--border-light);">
+                        <h4 style="margin-bottom: .5rem; color: var(--primary);">Metas</h4>
+                        <ul style="color: var(--text-secondary); padding-left: 1.2rem;">
+                            <li>Desarrollar productos digitales que ayuden a las personas</li>
+                            <li>Contribuir a proyectos open source</li>
+                            <li>Seguir aprendiendo y creciendo profesionalmente</li>
+                            <li>Viajar y conocer nuevas culturas</li>
+                            <li>Tener una familia feliz</li>
+                            <li>Poder trabajar 100% de freelancer</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloque WordPress, ¿por qué? -->
+            <div class="blog-entry fade-in-up" style="background: var(--bg-card); border-radius: var(--border-radius-lg); box-shadow: var(--shadow-md); padding: var(--spacing-2xl); margin-bottom: var(--spacing-2xl); border: 1px solid var(--primary);">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: var(--spacing-md);">
+                    <span style="font-size: 2rem;">🌐</span>
+                    <div>
+                        <h3 class="entry-title" style="margin: 0;">WordPress, ¿por qué?</h3>
+                        <span class="entry-date" style="color: var(--text-muted); font-size: 0.95rem;">Fecha: 15 de diciembre de 2023</span>
+                    </div>
+                </div>
+                <div style="display: grid; gap: var(--spacing-lg);">
+                    <div style="background: var(--bg-main); border-radius: var(--border-radius); padding: var(--spacing-lg); border: 1px solid var(--border-light);">
+                        <h4 style="color: var(--primary); margin-bottom: .5rem;">¿Qué es WordPress?</h4>
+                        <p style="color: var(--text-secondary);">
+                            WordPress es un sistema de gestión de contenido (CMS) de código abierto que permite crear y administrar sitios web de manera sencilla y flexible. Es la plataforma más utilizada en el mundo para blogs y páginas web, con más del 40% de todos los sitios en internet.
+                        </p>
+                    </div>
+                    <div style="background: var(--bg-main); border-radius: var(--border-radius); padding: var(--spacing-lg); border: 1px solid var(--border-light);">
+                        <h4 style="color: var(--primary); margin-bottom: .5rem;">Ventajas de WordPress</h4>
+                        <ul style="color: var(--text-secondary); padding-left: 1.2rem;">
+                            <li><strong>Facilidad de uso:</strong> No necesitas ser programador para crear un sitio profesional.</li>
+                            <li><strong>Personalización:</strong> Miles de temas y plugins para adaptar el sitio a cualquier necesidad.</li>
+                            <li><strong>SEO:</strong> Herramientas integradas y plugins para mejorar el posicionamiento en Google.</li>
+                            <li><strong>Comunidad:</strong> Gran cantidad de tutoriales, foros y soporte gratuito.</li>
+                            <li><strong>Escalabilidad:</strong> Desde blogs personales hasta grandes tiendas online.</li>
+                            <li><strong>Actualizaciones y seguridad:</strong> Mejoras constantes y plugins de seguridad.</li>
+                            <li><strong>Multilenguaje:</strong> Soporte para crear sitios en varios idiomas.</li>
+                            <li><strong>Accesibilidad:</strong> Pensado para que cualquier persona pueda usarlo.</li>
+                        </ul>
+                    </div>
+                    <div style="background: var(--bg-main); border-radius: var(--border-radius); padding: var(--spacing-lg); border: 1px solid var(--border-light);">
+                        <h4 style="color: var(--primary); margin-bottom: .5rem;">¿Cómo se usa WordPress?</h4>
+                        <ol style="color: var(--text-secondary); padding-left: 1.2rem;">
+                            <li><strong>Instalación:</strong> Se instala en un hosting web (muchos proveedores lo ofrecen con un solo clic).</li>
+                            <li><strong>Configuración:</strong> Se elige un tema visual y se instalan los plugins necesarios.</li>
+                            <li><strong>Creación de contenido:</strong> Se crean páginas, entradas, imágenes y menús desde un panel de administración muy intuitivo.</li>
+                            <li><strong>Publicación y gestión:</strong> Se publica el sitio y se puede modificar en cualquier momento sin conocimientos técnicos avanzados.</li>
+                        </ol>
+                    </div>
+                    <div style="background: var(--bg-main); border-radius: var(--border-radius); padding: var(--spacing-lg); border: 1px solid var(--border-light);">
+                        <h4 style="color: var(--primary); margin-bottom: .5rem;">¿Para quién es WordPress?</h4>
+                        <p style="color: var(--text-secondary);">
+                            Es ideal para emprendedores, empresas, bloggers, tiendas online, portafolios, revistas digitales y cualquier persona que quiera tener presencia en internet de forma profesional y económica.
+                        </p>
+                    </div>
+                    <div style="background: var(--bg-main); border-radius: var(--border-radius); padding: var(--spacing-lg); border: 1px solid var(--border-light);">
+                        <h4 style="color: var(--primary); margin-bottom: .5rem;">¿Por qué elegir WordPress para tu proyecto?</h4>
+                        <p style="color: var(--text-secondary);">
+                            Elegir WordPress significa apostar por una plataforma robusta, flexible y en constante evolución. Permite lanzar proyectos rápidamente, escalar funcionalidades y mantener el control total del contenido. Además, la integración con herramientas de marketing, analítica y comercio electrónico es sencilla y potente.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proyecto destacado -->
+            <div class="blog-entry fade-in-up" style="background: var(--bg-card); border-radius: var(--border-radius-lg); box-shadow: var(--shadow-md); padding: var(--spacing-2xl); border: 1px solid var(--accent);">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: var(--spacing-md);">
+                    <span style="font-size: 2rem;">🚀</span>
+                    <div>
+                        <h3 class="entry-title" style="margin: 0;">Proyecto Destacado:Que es "Tienda Bohemia", un E-commerce con WordPress</h3>
+                        <span class="entry-date" style="color: var(--text-muted); font-size: 0.95rem;">Fecha: 15 de diciembre de 2023</span>
+                    </div>
+                </div>
+                <div style="background: var(--bg-main); border-radius: var(--border-radius); padding: var(--spacing-lg); border: 1px solid var(--border-light); margin-bottom: var(--spacing-lg);">
+                    <h4 style="color: var(--primary); margin-bottom: .5rem;">Descripción</h4>
+                    <p style="color: var(--text-secondary);">
+                        Desarrollo de una tienda online completa utilizando WordPress y Visual studio code. El proyecto incluyó la personalización de una web de e-comerce, integración de pasarelas de pago, optimización para SEO, configuración de envíos automatizados y un dashboard de administrador.
+                    </p>
+                </div>
+                <div style="background: var(--bg-main); border-radius: var(--border-radius); padding: var(--spacing-lg); border: 1px solid var(--border-light); margin-bottom: var(--spacing-lg);">
+                    <h4 style="color: var(--primary); margin-bottom: .5rem;">Tecnologías utilizadas</h4>
+                    <ul style="color: var(--text-secondary); padding-left: 1.2rem;">
+                        <li>WordPress</li>
+                        <li>Visual Studio code</li>
+                        <li>HTML5, CSS3, JavaScript</li>
+                        <li>Plugins de SEO y seguridad</li>
+                        <li>Integración con Google Analytics y Facebook Pixel</li>
+                    </ul>
+                </div>
+                <div style="background: var(--bg-main); border-radius: var(--border-radius); padding: var(--spacing-lg); border: 1px solid var(--border-light);">
+                    <h4 style="color: var(--primary); margin-bottom: .5rem;">Resultados</h4>
+                    <ul style="color: var(--text-secondary); padding-left: 1.2rem;">
+                        <li>Lanzamiento exitoso en menos de 3 dias</li>
+                        <li>Incremento del 40% en ventas online en los primeros 2 meses</li>
+                        <li>Panel de administración fácil de usar para el cliente</li>
+                        <li>Optimización para dispositivos móviles y velocidad de carga</li>
+                    </ul>
+                    <div class="View-proyect">
+                        <h2><a href="Webs/e-comerce/index.html" style="color: white; text-decoration: none; font-size: 1.2rem; font-weight: 600; margin-top: 0px;">🌐Ver Proyecto</a></h2>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <style>
+    .View-proyect {
+      background-color: #764ba2;
+      color: white;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.1s ease;
+      width: 5cm;
+    }
+
+    /* Aquí se activa al hacer clic */
+    .View-proyect:active {
+      transform: scale(0.95); /* efecto de "presionado" */
+      background-color: #4c2f68;
+    }
+  </style>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Marcelo. Todos los derechos reservados.</p>
+        </div>
+        </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Gestión de temas
+        function initTheme() {
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+            document.getElementById('themeToggle').textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+
+            document.getElementById('themeToggle').addEventListener('click', () => {
+                const theme = document.documentElement.getAttribute('data-theme');
+                const newTheme = theme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+                document.getElementById('themeToggle').textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            });
+        }
+
+        // Hover effects
+        document.querySelectorAll('.blog-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px)';
+                this.style.boxShadow = 'var(--shadow-lg)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+                this.style.boxShadow = '';
+            });
+        });
+
+        // Funcionalidad de botones "Leer más"
+        function initReadMore() {
+            document.querySelectorAll('.read-more').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    const card = e.target.closest('.blog-card');
+                    const title = card.querySelector('.blog-card-title').textContent;
+                    
+                    // Simular expansión del artículo
+                    const excerpt = card.querySelector('.blog-excerpt');
+                    const isExpanded = excerpt.style.maxHeight === 'none';
+                    
+                    if (!isExpanded) {
+                        // Expandir
+                        excerpt.style.maxHeight = 'none';
+                        excerpt.style.overflow = 'visible';
+                        excerpt.innerHTML += '<br><br><strong>📝 Contenido completo:</strong><br>Este artículo incluirá una guía detallada con ejemplos prácticos, código fuente y mejores prácticas. El contenido completo estará disponible próximamente con tutoriales paso a paso.';
+                        e.target.textContent = 'Leer menos ↑';
+                        e.target.style.color = 'var(--accent)';
+                    } else {
+                        // Contraer
+                        const originalText = excerpt.innerHTML.split('<br><br><strong>')[0];
+                        excerpt.innerHTML = originalText;
+                        excerpt.style.maxHeight = '';
+                        excerpt.style.overflow = '';
+                        e.target.textContent = 'Leer más →';
+                        e.target.style.color = 'var(--primary)';
+                    }
+                    
+                    // Mostrar notificación
+                    showNotification(`Artículo "${title}" ${isExpanded ? 'contraído' : 'expandido'}`);
+                });
+            });
+        }
+
+        // Función para mostrar notificaciones
+        function showNotification(message) {
+            // Crear elemento de notificación
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--gradient-primary);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: var(--border-radius);
+                box-shadow: var(--shadow-lg);
+                z-index: 1000;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                font-weight: 500;
+            `;
+            notification.textContent = `✅ ${message}`;
+            
+            document.body.appendChild(notification);
+            
+            // Mostrar notificación
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Ocultar después de 3 segundos
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            initReadMore();
+        });
+    </script>
+</body>
+</html> 

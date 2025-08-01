@@ -1,0 +1,90 @@
+# Portfolio - Archivos a ignorar
+
+# Archivos del sistema
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Archivos de configuración del editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependencias (si se añaden en el futuro)
+node_modules/
+npm-debug.log*
+package-lock.json
+yarn.lock
+
+# Archivos de producción (si se compila)
+dist/
+build/
+out/
+
+# Variables de entorno
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Archivos temporales
+tmp/
+temp/
+.tmp/
+
+# Archivos de backup
+*.bak
+*.backup
+*.old
+
+# Archivos específicos del portfolio
+# (descomenta si no quieres subir assets grandes)
+# assets/images/large/
+# assets/videos/
+
+# Archivos de análisis
+.analytics/
+.reports/
+
+# Archivos de certificados SSL (si se usan)
+*.key
+*.crt
+*.pem
+
+# Cache de navegadores
+.cache/
+
+# Archivos de testing
+coverage/
+.nyc_output/
+
+# Archivos específicos de hosting
+.vercel
+.netlify
+
+# Archivos de WordPress (si se integra)
+wp-content/uploads/
+wp-config.php
+
+# Base de datos locales (si se usan)
+*.db
+*.sqlite
+*.sqlite3
+
+# Archivos de Docker (si se usa)
+Dockerfile
+docker-compose.yml
+.dockerignore 
