@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VetGestión - Sistema de Gestión Veterinaria</title>
+    <meta name="description" content="Sistema administrativo para veterinarias - Gestión integral de pacientes, citas y tratamientos">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/themes.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐾</text></svg>">
+</head>
+<body class="bg-neutral-50 dark:bg-neutral-900">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-white dark:bg-neutral-900 flex items-center justify-center z-50">
+        <div class="text-center">
+            <div class="w-12 h-12 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin mx-auto mb-4"></div>
+            <p class="text-neutral-600 dark:text-neutral-400">Cargando VetGestión...</p>
+        </div>
+    </div>
+
+    <!-- App Container -->
+    <div id="app" class="min-h-screen bg-neutral-50 dark:bg-neutral-900" style="display: none;">
+        
+        <!-- Login View -->
+        <div id="login-view" class="view" style="display: none;">
+            <div class="min-h-screen bg-neutral-50 dark:bg-neutral-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+                <div class="sm:mx-auto sm:w-full sm:max-w-md">
+                    <!-- Logo/Header -->
+                    <div class="text-center">
+                        <div class="mx-auto h-16 w-16 bg-primary-600 rounded-xl flex items-center justify-center mb-4">
+                            <span class="text-2xl text-white font-bold">🐾</span>
+                        </div>
+                        <h2 class="mt-2 text-center text-3xl font-bold text-neutral-900 dark:text-white">
+                            VetGestión
+                        </h2>
+                        <p class="mt-2 text-center text-sm text-neutral-600 dark:text-neutral-400">
+                            Sistema de gestión veterinaria
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+                    <div class="bg-white dark:bg-neutral-800 py-8 px-4 shadow-lg sm:rounded-lg sm:px-10 border border-neutral-200 dark:border-neutral-700">
+                        <!-- Formulario de Login -->
+                        <form id="login-form" class="space-y-6">
+                            <!-- Email -->
+                            <div>
+                                <label for="email" class="form-label">
+                                    Correo electrónico
+                                </label>
+                                <div class="mt-1">
+                                    <input
+                                        id="email"
+                                        name="email"
+                                        type="email"
+                                        autocomplete="email"
+                                        required
+                                        class="form-input"
+                                        placeholder="tu@email.com"
+                                    />
+                                    <p id="email-error" class="form-error" style="display: none;"></p>
+                                </div>
+                            </div>
+
+                            <!-- Contraseña -->
+                            <div>
+                                <label for="password" class="form-label">
+                                    Contraseña
+                                </label>
+                                <div class="mt-1">
+                                    <input
+                                        id="password"
+                                        name="password"
+                                        type="password"
+                                        autocomplete="current-password"
+                                        required
+                                        class="form-input"
+                                        placeholder="••••••••"
+                                    />
+                                    <p id="password-error" class="form-error" style="display: none;"></p>
+                                </div>
+                            </div>
+
+                            <!-- Remember me -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <input
+                                        id="remember-me"
+                                        name="remember-me"
+                                        type="checkbox"
+                                        class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-neutral-300 rounded"
+                                    />
+                                    <label for="remember-me" class="ml-2 block text-sm text-neutral-900 dark:text-neutral-300">
+                                        Recordarme
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div>
+                                <button
+                                    type="submit"
+                                    id="login-btn"
+                                    class="btn-primary w-full"
+                                >
+                                    <span id="login-btn-text">Iniciar sesión</span>
+                                    <span id="login-btn-loading" class="loading-spinner-sm" style="display: none;"></span>
+                                </button>
+                            </div>
+
+                            <!-- Demo credentials info -->
+                            <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900 rounded-lg border border-blue-200 dark:border-blue-700">
+                                <h4 class="text-sm font-semibold text-blue-800 dark:text-blue-200 mb-2">🔑 Credenciales de prueba:</h4>
+                                <div class="text-sm text-blue-700 dark:text-blue-300 space-y-1">
+                                    <p><strong>Veterinario:</strong> vet@vetgestion.com / password123</p>
+                                    <p><strong>Recepcionista:</strong> admin@vetgestion.com / password123</p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main App Layout -->
+        <div id="app-layout" class="view" style="display: none;">
+            <div class="min-h-screen bg-neutral-50 dark:bg-neutral-900">
+                <!-- Sidebar -->
+                <div id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-neutral-800 shadow-lg border-r border-neutral-200 dark:border-neutral-700">
+                    <!-- Logo -->
+                    <div class="flex items-center h-16 px-6 border-b border-neutral-200 dark:border-neutral-700">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center mr-3">
+                                <span class="text-white font-bold">🐾</span>
+                            </div>
+                            <h1 class="text-xl font-bold text-neutral-900 dark:text-white">VetGestión</h1>
+                        </div>
+                    </div>
+
+                    <!-- Navigation -->
+                    <nav class="mt-6 px-3">
+                        <div class="space-y-1" id="navigation-menu">
+                            <a href="#/" class="nav-item" data-route="/">
+                                <span class="nav-icon">🏠</span>
+                                Dashboard
+                            </a>
+                            <a href="#/pacientes" class="nav-item" data-route="/pacientes">
+                                <span class="nav-icon">🐕</span>
+                                Pacientes
+                            </a>
+                            <a href="#/citas" class="nav-item" data-route="/citas">
+                                <span class="nav-icon">📅</span>
+                                Citas
+                            </a>
+                            <a href="#/tratamientos" class="nav-item" data-route="/tratamientos">
+                                <span class="nav-icon">💊</span>
+                                Tratamientos
+                            </a>
+                            <a href="#/perfil" class="nav-item" data-route="/perfil">
+                                <span class="nav-icon">👤</span>
+                                Mi Perfil
+                            </a>
+                        </div>
+                    </nav>
+
+                    <!-- User menu -->
+                    <div class="absolute bottom-0 left-0 right-0 p-3 border-t border-neutral-200 dark:border-neutral-700">
+                        <div class="flex items-center px-3 py-2">
+                            <div class="w-8 h-8 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mr-3">
+                                <span id="user-initials" class="text-sm font-medium text-primary-600 dark:text-primary-300">U</span>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p id="user-name" class="text-sm font-medium text-neutral-900 dark:text-white truncate">Usuario</p>
+                                <p id="user-role" class="text-xs text-neutral-500 dark:text-neutral-400">Usuario</p>
+                            </div>
+                            <button 
+                                id="logout-btn"
+                                class="p-1 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 transition-colors"
+                                title="Cerrar sesión"
+                            >
+                                ⇨
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main content -->
+                <div class="pl-64">
+                    <!-- Top bar -->
+                    <div class="bg-white dark:bg-neutral-800 shadow-sm border-b border-neutral-200 dark:border-neutral-700">
+                        <div class="px-6 py-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h1 id="page-title" class="text-2xl font-bold text-neutral-900 dark:text-white">Dashboard</h1>
+                                    <nav id="breadcrumbs" class="flex mt-1" aria-label="Breadcrumb" style="display: none;">
+                                        <ol class="flex items-center space-x-2 text-sm" id="breadcrumbs-list">
+                                        </ol>
+                                    </nav>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <!-- Dark mode toggle -->
+                                    <button
+                                        id="dark-mode-toggle"
+                                        class="p-2 text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200 transition-colors"
+                                        title="Alternar modo oscuro"
+                                    >
+                                        <span id="theme-icon">🌙</span>
+                                    </button>
+                                    
+                                    <!-- Time -->
+                                    <span id="current-time" class="text-sm text-neutral-500 dark:text-neutral-400">
+                                        --:--:--
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Page content -->
+                    <main class="p-6" id="main-content">
+                        <!-- Content will be dynamically loaded here -->
+                    </main>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notifications" class="fixed top-4 right-4 z-50 space-y-2" style="display: none;">
+    </div>
+
+    <!-- Modal Container -->
+    <div id="modal-container" style="display: none;"></div>
+
+    <!-- Side Panel Container -->
+    <div id="side-panel-container" style="display: none;"></div>
+
+    <!-- JavaScript -->
+    <script src="js/utils/helpers.js"></script>
+    <script src="js/stores/persistence.js"></script>
+    <script src="js/stores/auth.js"></script>
+    <script src="js/stores/app.js"></script>
+    <script src="js/stores/settings.js"></script>
+    <script src="js/stores/patients.js"></script>
+    <script src="js/components/modal.js"></script>
+    <script src="js/components/side-panel.js"></script>
+    <script src="js/components/notifications.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html> 

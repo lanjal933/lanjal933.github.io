@@ -1,0 +1,450 @@
+/* ===================================
+   VetGestión - Temas CSS
+   Definiciones de temas y modo oscuro
+   =================================== */
+
+/* ===================================
+   Dark Mode Toggle
+   =================================== */
+
+/* Transición suave al cambiar de tema */
+*,
+*::before,
+*::after {
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Detectar preferencia del sistema */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+        color-scheme: dark;
+    }
+}
+
+/* ===================================
+   Theme Color Schemes
+   =================================== */
+
+/* Light Theme (Default) */
+[data-theme="light"],
+:root {
+    color-scheme: light;
+    --background-primary: #ffffff;
+    --background-secondary: #f9fafb;
+    --background-tertiary: #f3f4f6;
+    
+    --text-primary: #111827;
+    --text-secondary: #374151;
+    --text-tertiary: #6b7280;
+    
+    --border-primary: #e5e7eb;
+    --border-secondary: #d1d5db;
+    
+    --accent-primary: var(--primary-600);
+    --accent-secondary: var(--primary-100);
+}
+
+/* Dark Theme */
+[data-theme="dark"],
+.dark {
+    color-scheme: dark;
+    --background-primary: #111827;
+    --background-secondary: #1f2937;
+    --background-tertiary: #374151;
+    
+    --text-primary: #f9fafb;
+    --text-secondary: #e5e7eb;
+    --text-tertiary: #9ca3af;
+    
+    --border-primary: #374151;
+    --border-secondary: #4b5563;
+    
+    --accent-primary: var(--primary-400);
+    --accent-secondary: var(--primary-900);
+}
+
+/* ===================================
+   Primary Color Themes
+   =================================== */
+
+/* Green Theme (Default) */
+[data-primary="green"],
+:root {
+    --primary-50: #f0fdfa;
+    --primary-100: #ccfbf1;
+    --primary-200: #99f6e4;
+    --primary-300: #5eead4;
+    --primary-400: #2dd4bf;
+    --primary-500: #14b8a6;
+    --primary-600: #0d9488;
+    --primary-700: #0f766e;
+    --primary-800: #115e59;
+    --primary-900: #134e4a;
+}
+
+/* Blue Theme */
+[data-primary="blue"] {
+    --primary-50: #eff6ff;
+    --primary-100: #dbeafe;
+    --primary-200: #bfdbfe;
+    --primary-300: #93c5fd;
+    --primary-400: #60a5fa;
+    --primary-500: #3b82f6;
+    --primary-600: #2563eb;
+    --primary-700: #1d4ed8;
+    --primary-800: #1e40af;
+    --primary-900: #1e3a8a;
+}
+
+/* Purple Theme */
+[data-primary="purple"] {
+    --primary-50: #faf5ff;
+    --primary-100: #f3e8ff;
+    --primary-200: #e9d5ff;
+    --primary-300: #d8b4fe;
+    --primary-400: #c084fc;
+    --primary-500: #a855f7;
+    --primary-600: #9333ea;
+    --primary-700: #7c3aed;
+    --primary-800: #6b21a8;
+    --primary-900: #581c87;
+}
+
+/* Orange Theme */
+[data-primary="orange"] {
+    --primary-50: #fff7ed;
+    --primary-100: #ffedd5;
+    --primary-200: #fed7aa;
+    --primary-300: #fdba74;
+    --primary-400: #fb923c;
+    --primary-500: #f97316;
+    --primary-600: #ea580c;
+    --primary-700: #c2410c;
+    --primary-800: #9a3412;
+    --primary-900: #7c2d12;
+}
+
+/* ===================================
+   High Contrast Mode
+   =================================== */
+
+@media (prefers-contrast: high) {
+    :root {
+        --neutral-50: #ffffff;
+        --neutral-100: #f5f5f5;
+        --neutral-200: #d4d4d4;
+        --neutral-300: #a3a3a3;
+        --neutral-400: #737373;
+        --neutral-500: #525252;
+        --neutral-600: #404040;
+        --neutral-700: #262626;
+        --neutral-800: #171717;
+        --neutral-900: #000000;
+    }
+    
+    .dark {
+        --text-primary: #ffffff;
+        --text-secondary: #f5f5f5;
+        --background-primary: #000000;
+        --background-secondary: #171717;
+    }
+    
+    .btn-primary {
+        border: 2px solid var(--primary-600);
+    }
+    
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+        border: 2px solid var(--primary-600);
+    }
+}
+
+/* ===================================
+   Reduced Motion
+   =================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .animate-spin {
+        animation: none;
+    }
+    
+    .fade-in,
+    .slide-up {
+        animation: none;
+    }
+}
+
+/* ===================================
+   Print Styles
+   =================================== */
+
+@media print {
+    *,
+    *::before,
+    *::after {
+        background: transparent !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+    
+    #sidebar,
+    #dark-mode-toggle,
+    .btn,
+    .modal-overlay {
+        display: none !important;
+    }
+    
+    .pl-64 {
+        padding-left: 0 !important;
+    }
+    
+    .card {
+        border: 1px solid #000000 !important;
+        page-break-inside: avoid;
+    }
+    
+    .page-title {
+        font-size: 18pt;
+        margin-bottom: 12pt;
+    }
+    
+    .table {
+        border-collapse: collapse;
+    }
+    
+    .table th,
+    .table td {
+        border: 1px solid #000000;
+    }
+    
+    /* Evitar saltos de página en elementos importantes */
+    .card,
+    .table tr,
+    .alert {
+        page-break-inside: avoid;
+    }
+    
+    /* Mostrar URLs después de los enlaces */
+    a[href]:after {
+        content: " (" attr(href) ")";
+        font-size: 10pt;
+        color: #666666;
+    }
+    
+    /* Ocultar URLs de navegación interna */
+    a[href^="#"]:after,
+    a[href^="javascript:"]:after {
+        content: "";
+    }
+}
+
+/* ===================================
+   Focus Visible (Accesibilidad)
+   =================================== */
+
+/* Solo mostrar outline cuando sea navegación por teclado */
+*:focus {
+    outline: none;
+}
+
+*:focus-visible {
+    outline: 2px solid var(--primary-600);
+    outline-offset: 2px;
+}
+
+/* Estilos específicos para elementos interactivos */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--primary-600);
+    outline-offset: 2px;
+}
+
+/* ===================================
+   Custom Scrollbar
+   =================================== */
+
+/* Webkit scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--neutral-100);
+    border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-track {
+    background: var(--neutral-800);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--neutral-400);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--neutral-500);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: var(--neutral-600);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: var(--neutral-500);
+}
+
+/* Firefox scrollbar */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--neutral-400) var(--neutral-100);
+}
+
+.dark html {
+    scrollbar-color: var(--neutral-600) var(--neutral-800);
+}
+
+/* ===================================
+   Theme Utility Classes
+   =================================== */
+
+/* Background themes */
+.bg-theme-primary { background-color: var(--background-primary); }
+.bg-theme-secondary { background-color: var(--background-secondary); }
+.bg-theme-tertiary { background-color: var(--background-tertiary); }
+
+/* Text themes */
+.text-theme-primary { color: var(--text-primary); }
+.text-theme-secondary { color: var(--text-secondary); }
+.text-theme-tertiary { color: var(--text-tertiary); }
+
+/* Border themes */
+.border-theme-primary { border-color: var(--border-primary); }
+.border-theme-secondary { border-color: var(--border-secondary); }
+
+/* ===================================
+   Animation Presets
+   =================================== */
+
+.theme-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-transition-fast {
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-transition-slow {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===================================
+   CSS Custom Properties para JavaScript
+   =================================== */
+
+:root {
+    /* Duraciones de animación */
+    --duration-fast: 150ms;
+    --duration-normal: 300ms;
+    --duration-slow: 500ms;
+    
+    /* Easing functions */
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Z-index scale */
+    --z-dropdown: 1000;
+    --z-sticky: 1020;
+    --z-fixed: 1030;
+    --z-modal-backdrop: 1040;
+    --z-modal: 1050;
+    --z-popover: 1060;
+    --z-tooltip: 1070;
+    --z-toast: 1080;
+}
+
+/* ===================================
+   Loading State Themes
+   =================================== */
+
+.loading-state {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading-state::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    animation: loading-shimmer 1.5s infinite;
+}
+
+.dark .loading-state::after {
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+}
+
+@keyframes loading-shimmer {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* ===================================
+   Error State Themes
+   =================================== */
+
+.error-state {
+    border-color: #ef4444 !important;
+    background-color: #fef2f2;
+}
+
+.dark .error-state {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+.success-state {
+    border-color: #10b981 !important;
+    background-color: #ecfdf5;
+}
+
+.dark .success-state {
+    background-color: rgba(16, 185, 129, 0.1);
+} 

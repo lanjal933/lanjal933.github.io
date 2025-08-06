@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EstudioPixelArte - Tienda online de arte digital bohemio. Descarga posters, plantillas y diseños únicos para decorar tus espacios.">
+    <meta name="keywords" content="arte digital, bohemio, posters, plantillas, descargas, pixel art, diseño, mandala, floral">
+    <meta name="author" content="EstudioPixelArte">
+    <meta name="theme-color" content="#d86b94">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="EstudioPixelArte - Arte Digital Bohemio">
+    <meta property="og:description" content="Descarga arte digital único con estilo bohemio. Posters, mandalas, arte floral y más.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/images/og-image.jpg">
+    
+    <title>EstudioPixelArte - Arte Digital Bohemio Descargable</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" as="style">
+    
+    <!-- Animaciones y estilos adicionales -->
+    <style>
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideOut {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        
+        .loading-skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 1000px 100%;
+            animation: shimmer 2s infinite;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .category-card {
+            position: relative;
+            background: white;
+            border-radius: var(--border-radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s ease;
+            aspect-ratio: 3/2;
+            cursor: pointer;
+            border: 1px solid var(--cream-200);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-floating);
+        }
+        
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--cream-200);
+            border-top: 4px solid var(--rose-500);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        .loading-text {
+            color: var(--earth-600);
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Notificaciones mejoradas */
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 1.25rem 1.5rem;
+            box-shadow: var(--shadow-strong);
+            z-index: 2000;
+            border-left: 4px solid var(--rose-500);
+            max-width: 350px;
+            transform: translateX(100%);
+            transition: transform 0.4s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+        
+        .notification-icon {
+            background: var(--rose-100);
+            color: var(--rose-600);
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .notification-text {
+            flex: 1;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            color: var(--earth-800);
+            margin-bottom: 0.25rem;
+        }
+        
+        .notification-message {
+            color: var(--earth-600);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .notification-close {
+            background: none;
+            border: none;
+            color: var(--earth-500);
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            margin-left: 0.5rem;
+        }
+        
+        .notification-close:hover {
+            background: var(--earth-100);
+            color: var(--earth-700);
+        }
+        
+        /* Mobile menu improvements */
+        @media (max-width: 768px) {
+            .category-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .notification {
+                bottom: 1rem;
+                right: 1rem;
+                left: 1rem;
+                max-width: none;
+            }
+        }
+
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Focus styles */
+        button:focus,
+        a:focus,
+        input:focus,
+        select:focus {
+            outline: 2px solid var(--rose-500);
+            outline-offset: 2px;
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.3);
+                --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.4);
+                --shadow-strong: 0 8px 32px rgba(0, 0, 0, 0.5);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Mejorado -->
+    <header class="header" id="header">
+        <div class="header-content">
+            <a href="#" class="logo" onclick="navigateTo('home')" aria-label="EstudioPixelArte - Ir al inicio">
+                EstudioPixelArte
+            </a>
+            
+            <!-- Botón hamburger para móviles -->
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Abrir menú" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <nav role="navigation" aria-label="Navegación principal" class="nav-container">
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="#" class="nav-link" onclick="navigateTo('home')" data-page="home">Inicio</a></li>
+                    <li><a href="#" class="nav-link" onclick="navigateTo('catalog')" data-page="catalog">Catálogo</a></li>
+                    <li><a href="#" class="nav-link" onclick="navigateTo('categories')" data-page="categories">Categorías</a></li>
+                    <li><a href="#" class="nav-link" onclick="navigateTo('about')" data-page="about">Sobre Nosotros</a></li>
+                    <li><a href="#" class="nav-link" onclick="navigateTo('blog')" data-page="blog">Blog</a></li>
+                    <li><a href="#" class="nav-link" onclick="navigateTo('contact')" data-page="contact">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <form class="search-form" role="search" aria-label="Buscar productos">
+                <input type="text" 
+                       name="q" 
+                       placeholder="Buscar arte digital..." 
+                       class="search-input" 
+                       autocomplete="off"
+                       aria-label="Término de búsqueda">
+                <button type="submit" class="search-btn" aria-label="Buscar">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </button>
+            </form>
+
+            <a href="#" class="cart-link" onclick="navigateTo('cart')" aria-label="Ver carrito de compras">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.15.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                </svg>
+                <span>Carrito</span>
+                <span class="cart-count" style="display: none;" aria-label="Productos en el carrito">0</span>
+            </a>
+
+            <!-- Menu de Usuario/Autenticación -->
+            <div class="auth-dropdown" id="auth-container">
+                <button class="auth-button" onclick="toggleAuthMenu()" aria-label="Menú de usuario" aria-haspopup="true" aria-expanded="false">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                    <span>Mi Cuenta</span>
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M7 10l5 5 5-5z"/>
+                    </svg>
+                </button>
+                
+                <div class="user-dropdown" id="auth-dropdown" role="menu" aria-label="Opciones de usuario">
+                    <!-- El contenido se llenará dinámicamente -->
+                    <a href="#" class="dropdown-item" onclick="navigateTo('login')" role="menuitem">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"/>
+                        </svg>
+                        Iniciar Sesión
+                    </a>
+                    <a href="#" class="dropdown-item" onclick="navigateTo('register')" role="menuitem">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                        Crear Cuenta
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item" onclick="navigateTo('help')" role="menuitem">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+                        </svg>
+                        Centro de Ayuda
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Mejorado -->
+    <main class="main-content" id="main-content" role="main">
+        <!-- Loading inicial mejorado -->
+        <div class="loading" id="initial-loading">
+            <div class="spinner"></div>
+            <div class="loading-text">Cargando EstudioPixelArte...</div>
+        </div>
+    </main>
+
+    <!-- Footer Mejorado -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>EstudioPixelArte</h3>
+                    <p>Creamos arte digital bohemio único para inspirar y decorar tus espacios con estilo y creatividad. Cada diseño está cuidadosamente elaborado para transmitir paz y belleza.</p>
+                    <div class="social-links" style="margin-top: 1.5rem;">
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Pinterest">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0C5.374 0 0 5.372 0 12.017 0 16.4 2.331 20.027 5.686 21.6c-.076-.664-.145-1.685.03-2.409.157-.652 1.005-4.238 1.005-4.238s-.257-.513-.257-1.27c0-1.191.692-2.078 1.553-2.078.732 0 1.085.549 1.085 1.207 0 .735-.468 1.834-.708 2.853-.202.855.428 1.552 1.27 1.552 1.524 0 2.693-1.609 2.693-3.928 0-2.055-1.474-3.49-3.58-3.49-2.44 0-3.87 1.829-3.87 3.718 0 .736.284 1.525.639 1.952.07.085.08.16.059.246-.067.282-.215.865-.245.985-.038.155-.125.188-.287.114-1.074-.499-1.746-2.064-1.746-3.32 0-2.706 1.967-5.19 5.668-5.19 2.976 0 5.287 2.119 5.287 4.951 0 2.953-1.863 5.327-4.448 5.327-.868 0-1.686-.451-1.965-.99 0 0-.43 1.64-.534 2.034-.193.746-.716 1.681-1.065 2.25.802.247 1.652.381 2.538.381 6.624 0 11.99-5.373 11.99-12.017C24 5.372 18.626.001 12.001.001z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Productos</h3>
+                    <a href="#" class="footer-link" onclick="navigateTo('catalog', 'posters-bohemios')">Posters Bohemios</a>
+                    <a href="#" class="footer-link" onclick="navigateTo('catalog', 'arte-floral')">Arte Floral</a>
+                    <a href="#" class="footer-link" onclick="navigateTo('catalog', 'mandalas-patrones')">Mandalas</a>
+                    <a href="#" class="footer-link" onclick="navigateTo('catalog', 'frases-inspiradoras')">Frases Inspiradoras</a>
+                    <a href="#" class="footer-link" onclick="navigateTo('catalog', 'plantillas-imprimibles')">Plantillas</a>
+                    <a href="#" class="footer-link" onclick="navigateTo('catalog', 'arte-abstracto')">Arte Abstracto</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Soporte</h3>
+                    <a href="#" class="footer-link" onclick="navigateTo('help')">Centro de Ayuda</a>
+                    <a href="#" class="footer-link" onclick="navigateTo('faq')">Preguntas Frecuentes</a>
+                    <a href="#" class="footer-link" onclick="navigateTo('shipping')">Envíos y Descargas</a>
+                    <a href="#" class="footer-link" onclick="navigateTo('returns')">Devoluciones</a>
+                    <a href="#" class="footer-link" onclick="navigateTo('contact')">Contacto</a>
+                    <a href="#" class="footer-link" onclick="navigateTo('terms')">Términos de Uso</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Comunidad</h3>
+                    <a href="#" class="footer-link" onclick="navigateTo('blog')">Blog de Arte</a>
+                    <a href="#" class="footer-link" onclick="navigateTo('tutorials')">Tutoriales</a>
+                    <a href="#" class="footer-link" onclick="navigateTo('inspiration')">Galería de Inspiración</a>
+                    <a href="#" class="footer-link" onclick="navigateTo('newsletter')">Newsletter</a>
+                    <a href="#" class="footer-link" onclick="navigateTo('affiliate')">Programa de Afiliados</a>
+                    <a href="#" class="footer-link" onclick="navigateTo('about')">Sobre Nosotros</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 EstudioPixelArte. Todos los derechos reservados. | Diseñado con ❤️ para amantes del arte.</p>
+                <div class="social-links">
+                    <a href="#" class="footer-link" onclick="navigateTo('privacy')">Privacidad</a>
+                    <a href="#" class="footer-link" onclick="navigateTo('cookies')">Cookies</a>
+                    <a href="#" class="footer-link" onclick="navigateTo('sitemap')">Mapa del Sitio</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts Principales -->
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/router.js"></script>
+    
+    <!-- Scripts adicionales -->
+    <script>
+        // Prevenir comportamiento por defecto de los enlaces
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('a[href="#"]')) {
+                e.preventDefault();
+            }
+        });
+
+        // Header scroll effect
+        let lastScrollY = window.scrollY;
+        const header = document.getElementById('header');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Función para toggle del menú de autenticación
+        function toggleAuthMenu() {
+            const dropdown = document.getElementById('auth-dropdown');
+            const button = document.querySelector('.auth-button');
+            
+            if (dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+                button.setAttribute('aria-expanded', 'false');
+            } else {
+                dropdown.classList.add('show');
+                button.setAttribute('aria-expanded', 'true');
+            }
+        }
+
+        // Cerrar dropdown al hacer click fuera
+        document.addEventListener('click', function(e) {
+            const authContainer = document.getElementById('auth-container');
+            const dropdown = document.getElementById('auth-dropdown');
+            
+            if (authContainer && dropdown && !authContainer.contains(e.target)) {
+                dropdown.classList.remove('show');
+                document.querySelector('.auth-button').setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Cerrar dropdown con tecla Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const dropdown = document.getElementById('auth-dropdown');
+                if (dropdown && dropdown.classList.contains('show')) {
+                    dropdown.classList.remove('show');
+                    document.querySelector('.auth-button').setAttribute('aria-expanded', 'false');
+                    document.querySelector('.auth-button').focus();
+                }
+            }
+        });
+
+        // Mejorar accesibilidad del dropdown
+        document.addEventListener('keydown', function(e) {
+            const dropdown = document.getElementById('auth-dropdown');
+            if (dropdown && dropdown.classList.contains('show')) {
+                const items = dropdown.querySelectorAll('.dropdown-item');
+                const currentIndex = Array.from(items).indexOf(document.activeElement);
+                
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    const nextIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+                    items[nextIndex].focus();
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    const prevIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+                    items[prevIndex].focus();
+                }
+            }
+        });
+
+        // Service Worker para mejor rendimiento (opcional)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('SW registered: ', registration);
+                }).catch(function(registrationError) {
+                    console.log('SW registration failed: ', registrationError);
+                });
+            });
+        }
+
+        // Lazy loading para imágenes
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        // Función para el menú hamburger móvil
+        function toggleMobileMenu() {
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            
+            menuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            // Actualizar aria-expanded
+            const isExpanded = navMenu.classList.contains('active');
+            menuToggle.setAttribute('aria-expanded', isExpanded);
+            menuToggle.setAttribute('aria-label', isExpanded ? 'Cerrar menú' : 'Abrir menú');
+        }
+
+        // Cerrar menú móvil al hacer clic en un enlace
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('nav-link')) {
+                const menuToggle = document.querySelector('.mobile-menu-toggle');
+                const navMenu = document.getElementById('nav-menu');
+                
+                if (navMenu.classList.contains('active')) {
+                    menuToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    menuToggle.setAttribute('aria-label', 'Abrir menú');
+                }
+            }
+        });
+
+        // Cerrar menú móvil al hacer clic fuera
+        document.addEventListener('click', function(e) {
+            const header = document.querySelector('.header');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            
+            if (!header.contains(e.target) && navMenu.classList.contains('active')) {
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.setAttribute('aria-label', 'Abrir menú');
+            }
+        });
+    </script>
+</body>
+</html> 
